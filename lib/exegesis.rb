@@ -1,5 +1,3 @@
-require "exegesis/version"
+require 'exegesis/version'
 
-module Exegesis
-  # Your code goes here...
-end
+require 'exegesis/project'

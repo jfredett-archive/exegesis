@@ -6,21 +6,23 @@ to the following model:
     class Project
       HAS_A Root
       HAS_MANY Directories
+      HAS_MANY SourceFiles
 
     Responsibilities:
       Expose properties of the root directory, Spawn the initial set of
       directories which will recursively find all the files in the project
 
-      The class will also wrap some of the File classmacros, like #join and
+      The class will also wrap some of the SourceFile classmacros, like #join and
       #expand_path and stuff. Think along the lines of Rails.root and the like.
 
     Collaborators:
       Directory  
+      SourceFile
     
     ----------------------------------------------------------------------------
 
     class Directory
-      HAS_MANY Files
+      HAS_MANY SourceFiles
       HAS_MANY Directories (Children)
       HAS_A Directory (Parent)
 
@@ -30,16 +32,16 @@ to the following model:
       parallel. 
 
     Collaborators: 
-      File
+      SourceFile
       Directory
 
     ----------------------------------------------------------------------------
 
-    class File
+    class SourceFile
       HAS_A Extension
       HAS_A Path
       HAS_A Base Name
-      HAS_MANY Files (Dependencies)
+      HAS_MANY SourceFiles (Dependencies)
       
     Responsibilities:
       Represents a sourcefile on disk, providing access to it's file-system
@@ -52,21 +54,21 @@ to the following model:
       (similarly we might have a module for shared subsets, etc).
 
     Collaborators:
-      File
-      FileFactory       -- to build the appropriate subclass based on file extenstion
+      SourceFile
+      SourceFileFactory       -- to build the appropriate subclass based on file extenstion
 
     ----------------------------------------------------------------------------
     
-    class FileFactory
+    class SourceFileFactory
       #snip
 
     Responsibilities:
-      Provide an extensible way to build File instances appropriate to the
+      Provide an extensible way to build SourceFile instances appropriate to the
       language the source of a given file is in.
 
     Collaborators:
       LanguageIdentifier
-      File
+      SourceFile
 
     ----------------------------------------------------------------------------
 
@@ -77,7 +79,7 @@ to the following model:
       A command object to identify the language of a given sourcefile
 
     Collaborators:
-      FileFactory
+      SourceFileFactory
 
     ----------------------------------------------------------------------------
       
@@ -86,6 +88,15 @@ to the following model:
 
 Would be nice to model these guys as actors, especially so that we and make use
 of that nice async stuff for a little map-reduce-y action. Celluloid? (DCell? :])
+
+# #visit
+
+This is an interface which would take some kind of Visitor class, which defines
+up to `n` methods (on for each model type). This method would iterate over all
+of it's contents (directories/files/whatever) and apply to each the appropriate
+method from the visitor, with the instance as an argument. The visitor can
+potentially recursively call #visit on directories, which should also support
+this interface
 
 # Features
 
