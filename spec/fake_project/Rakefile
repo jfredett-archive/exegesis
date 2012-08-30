@@ -1,0 +1,14 @@
+$:.unshift './'
+require 'build/all'
+
+build do
+  binaries do
+    bin 'grafton'
+  end
+
+  dependencies 
+
+  packages do
+    package "check"
+  end
+end

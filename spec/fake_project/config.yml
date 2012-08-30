@@ -1,0 +1,6 @@
+---
+CC: clang
+SRC: src/
+OBJ: obj/
+BIN: bin/
+TEST: test/
