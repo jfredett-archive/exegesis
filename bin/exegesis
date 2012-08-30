@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'rake'
+require 'exegesis'
+
+Rake.application.init('exegesis')
+
+task :version do
+  puts "Exegesis, version #{Exegesis::VERSION}"
+end
+
+Rake.application.top_level
+
+
+
