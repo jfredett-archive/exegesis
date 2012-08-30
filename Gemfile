@@ -4,4 +4,8 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'pry'
-gem 'rspec'
+
+group :test do
+  gem 'rspec'
+  gem 'bahia'
+end
