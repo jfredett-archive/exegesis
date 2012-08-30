@@ -15,4 +15,7 @@ RSpec.configure do |config|
   end
 
   config.include(Bahia)
+
+
+  config.extend(RSpec::Exegesis::DSL::Macros)
 end

@@ -20,6 +20,7 @@ describe Project do
 
   describe '#directories' do
     subject { project.directories } 
+
     let (:dirs) { [ 'test', 'src', 'obj', 'bin' ] }
 
     it { should =~ dirs } 
@@ -27,6 +28,7 @@ describe Project do
 
   describe '#files' do 
     subject { project.files } 
+
     let (:files) { [ 'config.yml', 'Rakefile', 'AUTHORS'] } 
 
     it { should =~ files } 
