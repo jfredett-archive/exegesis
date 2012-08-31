@@ -4,7 +4,7 @@ module RSpec
       module Macros
         def the(sym, &block)
           context sym do
-            subject { send sym } 
+            subject { if sym.is_a? Class then sym else send sym end } 
             it &block
           end
         end
