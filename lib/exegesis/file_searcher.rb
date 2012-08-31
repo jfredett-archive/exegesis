@@ -23,14 +23,17 @@ class FileSearcher
     @path = path
   end
 
+  #All of the directories in the given path
   def directories
     content.select { |s| File.directory?(s) } 
   end
 
+  #All of the files in the given path
   def files
     content.select { |s| File.file?(s) } 
   end
 
+  #All of the content from the given path
   def content
     Dir[File.join(path, '*')]
   end
