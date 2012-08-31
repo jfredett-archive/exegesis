@@ -18,6 +18,6 @@ RSpec.configure do |config|
 
   config.include(Bahia)
 
-
   config.extend(RSpec::Exegesis::DSL::Macros)
+  config.include(RSpec::Exegesis::DSL::Matchers)
 end

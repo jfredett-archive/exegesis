@@ -38,26 +38,8 @@ describe Project do
       it { should == root }
     end
 
-    describe '#directories' do
-      before { 
-        searcher.stub(:directories) 
-        project.directories
-      } 
-
-      the(:searcher) { should have_received :directories  } 
-    end
-
-    describe '#files' do 
-      before { 
-        searcher.stub(:files) 
-        project.files
-      } 
-
-      the(:searcher) { should have_received :files } 
-
-      #it { should delegate(:directories).to(:searcher).when_calling { project.directories } }
-      #it { should delegate(:directories).to(:searcher) } 
-    end
+    it { should delegate(:files).to(searcher) } 
+    it { should delegate(:directories).to(searcher) } 
 
     #it should also provide interface for
     #  * creating files/directories
