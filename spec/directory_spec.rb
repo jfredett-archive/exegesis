@@ -20,7 +20,7 @@ describe Directory do
       Directory.new(parent, name, searcher)
     }
 
-    the(:searcher) { should have_received(:new).with(parent.path, name) }
+    the(:searcher) { should have_received(:new).with(File.join(parent_path, name)) }
   end
 
   subject { directory } 

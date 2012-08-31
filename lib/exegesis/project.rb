@@ -13,22 +13,16 @@
 # Collaborators:
 #  [Directory]  
 #  [SourceFile]
-class Project
-  extend Forwardable
-
-  attr_reader :root
-
+class Project < Directory
   # @param root [String] the root path of the project
   # @param searcher [FileSearcher] an object used to search for files in a given
   #    directory
   def initialize(root, searcher = FileSearcher)
-    @root = root
-    @searcher = searcher.new(root)
+    super(nil, root, searcher)
   end
 
-  delegate [:directories, :files] => :searcher
-
-  private
-
-  attr_reader :searcher
+  def path
+    name
+  end
+  alias root path
 end

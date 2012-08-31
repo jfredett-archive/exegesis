@@ -2,10 +2,10 @@ class Directory
   extend Forwardable
 
   def initialize(parent, name, searcher = FileSearcher)
-    raise 'parent must be a directory' unless parent.is_a?(Directory)
+    #raise 'parent must be a directory' unless parent.is_a?(Directory)
     @parent = parent
     @name = name
-    @searcher = searcher.new(parent.path, name)
+    @searcher = searcher.new(path)
   end
 
   delegate [:directories, :files] => :searcher

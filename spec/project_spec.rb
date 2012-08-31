@@ -29,6 +29,7 @@ describe Project do
     subject { project } 
 
     describe 'api' do
+      it { should be_a Directory } 
       it { should respond_to :root }
       it { should respond_to :directories } 
       it { should respond_to :files } 
