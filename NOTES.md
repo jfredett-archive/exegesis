@@ -82,6 +82,24 @@ to the following model:
       SourceFileFactory
 
     ----------------------------------------------------------------------------
+
+    class FileSearcher
+      
+    Responsibilities:
+      Encapsulates an API for looking through a single directory of files,
+      sorting them into directories/files/whatever, and providing those path
+      lists on demand
+
+    NB: 
+      The aim is to isolate the minimum API with this class, so that alternative
+      source backends could potentially be written, eg -- a backend for
+      distributed sourcetrees, or w/ files in Riak or S3 or whereever
+
+    Collaborators:
+      Used By:
+        Project, Directory
+      Uses:
+        Some system-level class like Dir, FileList, or Find
       
 
 # Tools
