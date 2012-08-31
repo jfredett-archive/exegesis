@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Project do
-  let (:root) { double('some path to a project directory').as_null_object } 
-  let (:searcher) { double('directory searcher like FileSearcher') } 
-  let (:dir) { double('fake directory') }
-  let (:file) { double('fake file') }
+  let (:root)     { double('some path to a project directory').as_null_object }
+  let (:searcher) { double('directory searcher like FileSearcher') }
+  let (:dir)      { double('fake directory') }
+  let (:file)     { double('fake file') }
 
   let (:project) { Project.new(root, searcher) } 
 

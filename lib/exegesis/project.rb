@@ -20,7 +20,7 @@ class Project
 
   # @param root [String] the root path of the project
   # @param searcher [FileSearcher] an object used to search for files in a given
-  # directory
+  #    directory
   def initialize(root, searcher = FileSearcher)
     @root = root
     @searcher = searcher.new(root)
