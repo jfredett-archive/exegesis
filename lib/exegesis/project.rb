@@ -1,4 +1,4 @@
-# class Project
+# class Project IS_A Directory
 #  HAS_A Root
 #  HAS_MANY Directories
 #  HAS_MANY SourceFiles (files)
