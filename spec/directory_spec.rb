@@ -30,6 +30,7 @@ describe Directory do
     it { should respond_to :parent      }
     it { should respond_to :files       }
     it { should respond_to :path        }
+    it { should respond_to :children    }
   end
 
   it { should delegate(:files).to(searcher) }
