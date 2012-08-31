@@ -1,6 +1,7 @@
 class Project
-  def initialize(root)
+  def initialize(root, searcher = Dir)
     @root = root
+    @searcher = searcher
   end
 
   attr_reader :root
@@ -15,7 +16,9 @@ class Project
 
   private
 
+  attr_reader :searcher
+
   def content
-    Dir[@root + '*']
+    searcher[root + '*']
   end
 end

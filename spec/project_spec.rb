@@ -1,8 +1,23 @@
 require 'spec_helper'
 
 describe Project do
-  let (:root) { './spec/fake_project/' } 
-  let (:project) { Project.new(root) } 
+  let (:root) { double('some path to a project directory').as_null_object } 
+  let (:searcher) { double('directory searcher like Dir') } 
+  let (:dir) { double('fake directory') }
+  let (:file) { double('fake file') }
+
+  let (:project) { Project.new(root, searcher) } 
+
+
+  before do
+    searcher.stub(:[]).with(root + '*').and_return([dir, file])
+
+    File.stub(:directory?).with(dir).and_return(true)
+    File.stub(:directory?).with(file).and_return(false)
+
+    File.stub(:basename).with(dir).and_return(dir)
+    File.stub(:basename).with(file).and_return(file)
+  end
 
   subject { project } 
 
@@ -21,7 +36,7 @@ describe Project do
   describe '#directories' do
     subject { project.directories } 
 
-    let (:dirs) { [ 'test', 'src', 'obj', 'bin' ] }
+    let (:dirs) { [ dir ] }
 
     it { should =~ dirs } 
   end
@@ -29,7 +44,7 @@ describe Project do
   describe '#files' do 
     subject { project.files } 
 
-    let (:files) { [ 'config.yml', 'Rakefile', 'AUTHORS'] } 
+    let (:files) { [ file ] } 
 
     it { should =~ files } 
   end
