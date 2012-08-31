@@ -16,6 +16,8 @@ RSpec.configure do |config|
     allow_message_expectations_on_nil #because we're making proper nullclasses.
   end
 
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
   config.include(Bahia)
 
   config.extend(RSpec::Exegesis::DSL::Macros)
