@@ -21,6 +21,7 @@ class Project < Directory
     super(nil, root, searcher)
   end
 
+  # The path to the root of the project
   def path
     name
   end
