@@ -6,6 +6,8 @@ require 'exegesis'
 
 require 'bahia'
 
+require 'rspec-spies'
+
 #include helpers
 Dir["./spec/helpers/*.rb"].each { |file| require file }
 
