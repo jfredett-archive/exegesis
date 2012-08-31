@@ -21,8 +21,9 @@ describe Project do
       Project.new(root, searcher)
     }
 
-    the(:searcher) { should have_received :new }
+    the(:searcher) { should have_received(:new).with(root) }
   end
+
 
   context do
     subject { project } 
