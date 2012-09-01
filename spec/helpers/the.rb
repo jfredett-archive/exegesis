@@ -8,6 +8,7 @@ module RSpec
             it &block
           end
         end
+        alias the_class the
       end
     end
   end
