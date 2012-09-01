@@ -6,6 +6,7 @@ require 'exegesis/version'
 require 'exegesis/file_searcher'
 require 'exegesis/directory'
 require 'exegesis/project'
+require 'exegesis/source_file'
 
 # Exegesis is a tool for automating many parts of the development of C projects.
 # Following a convention-over-configuration model.
