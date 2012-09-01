@@ -20,20 +20,23 @@ describe SourceFile do
   end
 
   describe 'api' do
-    it { should respond_to :extension }
-    it { should respond_to :ext       }
+    context 'basic interface' do
+      it { should respond_to :extension }
+      it { should respond_to :ext       }
 
-    it { should respond_to :basename }
-    it { should respond_to :name     }
+      it { should respond_to :basename }
+      it { should respond_to :name     }
 
-    it { should respond_to :path      }
-    it { should respond_to :content   }
+      it { should respond_to :path      }
+      it { should respond_to :content   }
 
-    it { should respond_to :parent    }
-    it { should respond_to :container }
+      it { should respond_to :parent    }
+      it { should respond_to :container }
+    end
 
-    pending 'dependencies' do
+    context 'dependencies' do
       it { should respond_to :dependencies } 
+      it { should respond_to :depends_on } 
     end
 
     pending 'language identification' do
@@ -44,6 +47,7 @@ describe SourceFile do
   
   describe '#path' do
     subject { source_file.path } 
+
     it { should == full_path } 
   end
 
@@ -80,5 +84,29 @@ describe SourceFile do
     before { source_file.content } 
 
     the_class(File) { should have_received(:read).with(full_path) } 
+  end
+
+  describe '#dependencies' do
+    let(:file) { double('another sourcefile') } 
+    let(:not_a_file) { double('not a sourcefile') }
+
+    before { file.stub(:is_a?).with(SourceFile).and_return(:true) } 
+
+    subject { source_file.dependencies } 
+
+    it { should respond_to :each } 
+    it { should be_empty } 
+
+    describe '#depends_on' do
+      before { source_file.depends_on(file) } 
+
+      it { should =~ [file] }
+
+      it 'raises unless the dependency is a file' do
+        expect { 
+          source_file.depends_on(not_a_file) 
+        }.to raise_error InvalidDependency
+      end
+    end
   end
 end

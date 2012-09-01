@@ -24,6 +24,7 @@ class SourceFile
     @ext = File.extname(name)
     @basename = File.basename(name, @ext)
     @parent = parent
+    @dependencies = []
   end
 
   attr_reader :basename, :ext, :parent, :name
@@ -38,4 +39,11 @@ class SourceFile
     File.read(path)
   end
 
+  attr_reader :dependencies
+  def depends_on(file)
+    raise InvalidDependency unless file.is_a?(SourceFile)
+    @dependencies << file
+  end
 end
+
+class InvalidDependency < StandardError ; end
