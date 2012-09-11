@@ -1,11 +1,11 @@
 # class FileSearcher
-#   
+#
 # Responsibilities:
 #   Encapsulates an API for looking through a single directory of files,
 #   sorting them into directories/files/whatever, and providing those path
 #   lists on demand
 #
-# NB: 
+# NB:
 #   The aim is to isolate the minimum API with this class, so that alternative
 #   source backends could potentially be written, eg -- a backend for
 #   distributed sourcetrees, or w/ files in Riak or S3 or whereever
@@ -25,12 +25,12 @@ class FileSearcher
 
   #All of the directories in the given path
   def directories
-    content.select { |s| File.directory?(s) } 
+    content.select { |s| File.directory?(s) }
   end
 
   #All of the files in the given path
   def files
-    content.select { |s| File.file?(s) } 
+    content.select { |s| File.file?(s) }
   end
 
   #All of the content from the given path

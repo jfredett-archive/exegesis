@@ -23,7 +23,7 @@ describe Directory do
     the(:searcher) { should have_received(:new).with(File.join(parent_path, name)) }
   end
 
-  subject { directory } 
+  subject { directory }
 
   describe 'api' do
     it { should respond_to :directories }
@@ -37,9 +37,9 @@ describe Directory do
   it { should delegate(:directories).to(searcher) }
 
   describe '#path' do
-    subject { directory.path } 
+    subject { directory.path }
 
-    it { should be_a String }  
-    it { should == File.join(parent_path, name) } 
+    it { should be_a String }
+    it { should == File.join(parent_path, name) }
   end
 end

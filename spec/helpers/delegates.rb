@@ -44,7 +44,6 @@ module RSpec
           DelegateMatcher.new(message)
         end
       end
-
     end
   end
 end
