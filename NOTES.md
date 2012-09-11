@@ -1,5 +1,13 @@
 # Basic structure
 
+## Implementation 
+
+* SourceFiles and Directories should be members of a Flyweight, and creation
+  should try to do a lookup first. Perhaps Celluloid can be used to do this,
+  with directories potentially acting as supervisors.
+
+## Architecture
+
 A suite of raketasks (potentially hidden behind a 'exegesis' script. Adhereing
 to the following model:
     
