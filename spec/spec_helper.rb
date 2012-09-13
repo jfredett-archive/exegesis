@@ -13,7 +13,7 @@ Dir["./spec/helpers/*.rb"].each { |file| require file }
 
 RSpec.configure do |config|
   config.before do
-    allow_message_expectations_on_nil #because we're making proper nullclasses.
+    allow_message_expectations_on_nil
   end
 
   config.treat_symbols_as_metadata_keys_with_true_values = true
