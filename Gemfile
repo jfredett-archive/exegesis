@@ -15,6 +15,6 @@ end
 
 group :test do
   gem 'rspec'
-  gem 'rspec-spies'
+  gem 'rspec-spies', '2.1.0'
   gem 'bahia'
 end
