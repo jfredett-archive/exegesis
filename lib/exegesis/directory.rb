@@ -34,6 +34,9 @@ class Directory
     File.join(parent.path, name)
   end
 
+  def inspect
+    "#{self.class.inspect}(#{path.inspect})"
+  end
   private
 
   attr_reader :searcher, :name

@@ -38,6 +38,10 @@ class FileSearcher
     Dir[File.join(path, '*')]
   end
 
+  def inspect
+    "FileSearcher(#{path.inspect})"
+  end
+
   private
 
   attr_reader :path

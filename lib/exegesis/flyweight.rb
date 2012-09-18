@@ -92,6 +92,10 @@ class Flyweight
   end
   alias reset! clear!
 
+  def inspect
+    "FileSearcher<#{object_id}>"
+  end
+
   private
 
   # Build a key from an instance via the key_processor

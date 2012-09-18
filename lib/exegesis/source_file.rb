@@ -44,6 +44,10 @@ class SourceFile
     raise InvalidDependency unless file.is_a?(SourceFile)
     @dependencies << file
   end
+
+  def inspect
+    "SourceFile(#{path.inspect})"
+  end
 end
 
 class InvalidDependency < StandardError ; end
