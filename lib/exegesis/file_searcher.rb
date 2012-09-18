@@ -25,12 +25,12 @@ class FileSearcher
 
   #All of the directories in the given path
   def directories
-    content.select { |s| File.directory?(s) }
+    content.select { |s| File.directory?(s) }.map { |s| Directory.new(s) }
   end
 
   #All of the files in the given path
   def files
-    content.select { |s| File.file?(s) }
+    content.select { |s| File.file?(s) }.map { |s| SourceFile.new(s) }
   end
 
   #All of the content from the given path
