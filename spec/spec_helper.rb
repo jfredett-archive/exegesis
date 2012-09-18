@@ -23,3 +23,9 @@ RSpec.configure do |config|
   config.extend(RSpec::Exegesis::DSL::Macros)
   config.include(RSpec::Exegesis::DSL::Matchers)
 end
+
+class RSpec::Mocks::Mock
+  def inspect
+    "double(#{@name.inspect})"
+  end
+end
