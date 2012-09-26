@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'unit_spec_helper'
 
 describe Flyweight do
   let (:processor)          { proc { instance_key }     }
@@ -6,7 +6,7 @@ describe Flyweight do
   let (:instance)           { double('instance')        }
   let (:instance_key)       { double('instance_key')    }
 
-  subject { flyweight } 
+  subject { flyweight }
 
   before do
     processor.stub(:call).and_return(instance_key)
@@ -63,6 +63,34 @@ describe Flyweight do
       end
     end
 
+    describe '#has_key?' do
+      subject { flyweight }
+
+      context 'when it has an entry for the given value' do
+        before { flyweight.register(instance) }
+
+        context 'by key' do
+          it { should have_key instance_key }
+        end
+
+        context 'by instance' do
+          it { should have_key instance }
+        end
+      end
+
+      context 'when it has no entry for the given value' do
+        before { flyweight.clear! }
+
+        context 'by key' do
+          it { should_not have_key instance_key }
+        end
+
+        context 'by instance' do
+          it { should_not have_key instance }
+        end
+      end
+    end
+
     describe '#[]' do
       context 'by instance' do
         subject { flyweight[instance] }
@@ -74,6 +102,23 @@ describe Flyweight do
         subject { flyweight[instance_key] }
 
         it { should be instance }
+      end
+
+      describe 'when flyweight does not have an entry for the value' do
+        before { flyweight.clear! }
+
+        context 'by instance' do
+          subject { flyweight[instance] }
+
+          it { should be_nil }
+        end
+
+        context 'by key' do
+          subject { flyweight[instance_key] }
+
+          it { should be_nil }
+        end
+
       end
     end
 

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'unit_spec_helper'
 
 describe Project do
   let (:root)     { double('some path to a project directory').as_null_object }

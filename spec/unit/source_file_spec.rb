@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'unit_spec_helper'
 
 describe SourceFile do
   let(:basename)  { 'fake'               }
@@ -44,7 +44,7 @@ describe SourceFile do
       it { should respond_to :language? } 
     end
   end
-  
+
   describe '#path' do
     subject { source_file.path } 
 
@@ -109,4 +109,11 @@ describe SourceFile do
       end
     end
   end
+
+  #this should be a shared pattern between directories, sourcefiles, etc.
+  describe 'flyweight nature' do
+    #it should not create two identical instances
+  end
+
+  #deleting a file should delete it's instance from the flyweight
 end
