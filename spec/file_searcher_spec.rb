@@ -16,9 +16,11 @@ describe FileSearcher do
     File.stub(:file?).with(file).and_return(true)
     File.stub(:file?).with(dir).and_return(false)
     File.stub(:join).and_return(globbed_path)
+    File.stub(:basename).with(file).and_return(file)
+    File.stub(:basename).with(dir).and_return(dir)
 
-    Directory.stub(:new).with(dir).and_return(fake_directory_instance)
-    SourceFile.stub(:new).with(file).and_return(fake_source_file_instance)
+    Directory.stub(:new).with(root, dir).and_return(fake_directory_instance)
+    SourceFile.stub(:new).with(root, file).and_return(fake_source_file_instance)
 
     fake_source_file_instance.stub(:is_a?).with(SourceFile).and_return(true)
     fake_directory_instance.stub(:is_a?).with(Directory).and_return(true)
@@ -53,7 +55,7 @@ describe FileSearcher do
       it { should contain(fake_directory_instance)   }
       it { should exclude(fake_source_file_instance) }
 
-      the_class(Directory) { should have_received(:new).with(dir) }
+      the_class(Directory) { should have_received(:new).with(root, dir) }
       the_class(SourceFile) { should_not have_received(:new) }
     end
 
@@ -65,7 +67,7 @@ describe FileSearcher do
       it { should exclude(fake_directory_instance)   }
 
       the_class(Directory) { should_not have_received(:new) }
-      the_class(SourceFile) { should have_received(:new).with(file) }
+      the_class(SourceFile) { should have_received(:new).with(root, file) }
     end
   end
 end

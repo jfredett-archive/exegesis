@@ -1,6 +1,6 @@
 # Basic structure
 
-## Implementation 
+## Implementation
 
 * SourceFiles and Directories should be members of a Flyweight, and creation
   should try to do a lookup first. Perhaps Celluloid can be used to do this,
@@ -10,7 +10,7 @@
 
 A suite of raketasks (potentially hidden behind a 'exegesis' script. Adhereing
 to the following model:
-    
+
     class Project IS_A Directory
       HAS_A Root
       HAS_MANY Directories
@@ -24,9 +24,9 @@ to the following model:
       #expand_path and stuff. Think along the lines of Rails.root and the like.
 
     Collaborators:
-      Directory  
+      Directory
       SourceFile
-    
+
     ----------------------------------------------------------------------------
 
     class Directory
@@ -50,7 +50,7 @@ to the following model:
       HAS_A Path
       HAS_A Base Name
       HAS_MANY SourceFiles (Dependencies)
-      
+
     Responsibilities:
       Represents a sourcefile on disk, providing access to it's file-system
       related information as well as internal information based on the language.
@@ -66,7 +66,7 @@ to the following model:
       SourceFileFactory       -- to build the appropriate subclass based on file extenstion
 
     ----------------------------------------------------------------------------
-    
+
     class SourceFileFactory
       #snip
 
@@ -92,13 +92,13 @@ to the following model:
     ----------------------------------------------------------------------------
 
     class FileSearcher
-      
+
     Responsibilities:
       Encapsulates an API for looking through a single directory of files,
       sorting them into directories/files/whatever, and providing those path
       lists on demand
 
-    NB: 
+    NB:
       The aim is to isolate the minimum API with this class, so that alternative
       source backends could potentially be written, eg -- a backend for
       distributed sourcetrees, or w/ files in Riak or S3 or whereever
@@ -108,7 +108,7 @@ to the following model:
         Project, Directory
       Uses:
         Some system-level class like Dir, FileList, or Find
-      
+
 
 # Tools
 
@@ -149,7 +149,7 @@ this interface
 
 * Language-aware search indexing (with ElasticSearch backend?)
 
-## Random features 
+## Random features
 
 * Automatically generate git helper stuff
   - spawn a repo

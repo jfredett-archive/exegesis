@@ -16,7 +16,7 @@ describe Flyweight do
     shared_examples_for 'flyweight unregistration' do
       before { flyweight.unregister!(key) }
 
-      it { should_not have_key instance_key } 
+      it { should_not have_key instance_key }
       it { should_not have_key instance }
 
       describe 'unregistering an unused key' do

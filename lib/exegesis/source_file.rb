@@ -3,7 +3,7 @@
 #   HAS_A Path
 #   HAS_A Base Name
 #   HAS_MANY SourceFiles (Dependencies)
-#   
+#
 # Responsibilities:
 #   Represents a sourcefile on disk, providing access to it's file-system
 #   related information as well as internal information based on the language.

@@ -11,7 +11,7 @@
 #   Directory
 #   Project
 class Flyweight
-  extend Forwardable 
+  extend Forwardable
 
   # Create an empty Flyweight with the given key-processing proc.
   #
@@ -64,7 +64,7 @@ class Flyweight
   end
 
   # Whether the flyweight has the given key or instance registered
-  # 
+  #
   # @param key_or_instance [Object] Either the key under which an instance is
   #     registered, or the instance itself.
   # @return [Boolean] True if the Flyweight has the key or instance, false
@@ -108,7 +108,7 @@ class Flyweight
   #
   # NB. This is a bit dirty, but since we don't know what types we're given, we
   # can't distinguish between key's and instance's without forcing the user to
-  # specifically tell us. 
+  # specifically tell us.
   def proxy_across_keytypes(method, key)
     key_registry.send(method, key) || key_registry.send(method, build_key(key))
   end

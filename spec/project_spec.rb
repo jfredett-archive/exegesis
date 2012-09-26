@@ -6,7 +6,7 @@ describe Project do
   let (:dir)      { double('fake directory') }
   let (:file)     { double('fake file') }
 
-  let (:project) { Project.new(root, searcher) } 
+  let (:project) { Project.new(root, searcher) }
 
 
   before do
@@ -21,33 +21,33 @@ describe Project do
       Project.new(root, searcher)
     }
 
-    the(:searcher) { should have_received(:new).with(root) }
+    the(:searcher) { should have_received(:new).with(project) }
   end
 
 
   context do
-    subject { project } 
+    subject { project }
 
     describe 'api' do
-      it { should be_a Directory } 
+      it { should be_a Directory }
       it { should respond_to :root }
-      it { should respond_to :directories } 
-      it { should respond_to :files } 
+      it { should respond_to :directories }
+      it { should respond_to :files }
     end
 
     describe '#root' do
-      subject { project.root } 
+      subject { project.root }
       it { should == root }
     end
 
-    it { should delegate(:files).to(searcher) } 
-    it { should delegate(:directories).to(searcher) } 
+    it { should delegate(:files).to(searcher) }
+    it { should delegate(:directories).to(searcher) }
 
     #it should also provide interface for
     #  * creating files/directories
     #    - something like `directories << Directory('foo')` ?
     #
-    #  * 
+    #  *
     #
     #it should also have a #visit method, see the NOTES doc for details on that
   end
