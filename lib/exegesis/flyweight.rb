@@ -93,7 +93,7 @@ class Flyweight
   alias reset! clear!
 
   def inspect
-    "FileSearcher<#{object_id}>"
+    "Flyweight<#{object_id}, items=#{@key_registry.keys.count}>"
   end
 
   private
