@@ -18,7 +18,14 @@ class Flyweight
   # @param key_processor [Proc] a proc which turns an instance into it's key.
   def initialize(&key_processor)
     clear!
-    @key_processor = key_processor
+
+    if block_given?
+      @key_processor = key_processor
+    else
+      @key_processor = proc { |id| id }
+    end
+
+    self
   end
 
   # Register an instance in the flyweight. Throw an error if the key is already
