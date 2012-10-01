@@ -23,7 +23,7 @@ class Directory
   def initialize(parent, name, searcher = FileSearcher)
     @parent = parent
     @name = name
-    @searcher = searcher.new(path)
+    @searcher = searcher.new(self)
   end
 
   delegate [:directories, :files] => :searcher

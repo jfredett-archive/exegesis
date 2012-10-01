@@ -18,31 +18,31 @@
 class FileSearcher
   # Create a new FileSearcher on the given path
   #
-  # @param path [String] the path to search for entries on
-  def initialize(path)
-    @path = path
+  # @param parent [Directory] the parent directory to search downward from
+  def initialize(parent)
+    @parent = parent
   end
 
   #All of the directories in the given path
   def directories
-    content.select { |s| File.directory?(s) }.map { |s| Directory.new(s) }
+    content.select { |s| File.directory?(s) }.map { |s| Directory.new(parent, File.basename(s)) }
   end
 
   #All of the files in the given path
   def files
-    content.select { |s| File.file?(s) }.map { |s| SourceFile.new(s) }
+    content.select { |s| File.file?(s) }.map { |s| SourceFile.new(parent, File.basename(s)) }
   end
 
   #All of the content from the given path
   def content
-    Dir[File.join(path, '*')]
+    Dir[File.join(parent.path, '*')]
   end
 
   def inspect
-    "FileSearcher(#{path.inspect})"
+    "FileSearcher(#{parent.path.inspect})"
   end
 
   private
 
-  attr_reader :path
+  attr_reader :parent
 end
