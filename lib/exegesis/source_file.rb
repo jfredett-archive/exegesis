@@ -18,6 +18,8 @@
 #   SourceFile
 #   SourceFileFactory       -- to build the appropriate subclass based on file extenstion
 class SourceFile
+  include Registerable
+
   def initialize(parent, name)
     raise ArgumentError, "parent must be a directory" unless parent.is_a?(Directory)
     @name = name

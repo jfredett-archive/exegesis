@@ -12,6 +12,8 @@
 #   SourceFile
 #   Directory
 class Directory
+
+  include Registerable
   extend Forwardable
 
   # @param parent [Directory] the root directory or project of the project
