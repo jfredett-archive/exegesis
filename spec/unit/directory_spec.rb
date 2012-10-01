@@ -44,43 +44,4 @@ describe Directory do
     it { should be_a String }
     it { should == File.join(parent_path, name) }
   end
-
-
-  shared_examples_for 'a flyweight object' do
-    # this is a gross way to create enough mocked arguments to appropriately
-    # fufill the requirements for the create method for whatever object we have.
-    #let (:mock_arguments) { ([proc { mock('argument').as_null_object } ] * subject.method(:create).arity).map &:call }
-
-  end
-  # deleting a directory should delete it's subdirectories
-  # deleting a directory should delete it's instance from the flyweight
-  # creating a directory that does not exist on the system should mkdir the
-  #   directory.
-  # #create should be aliased to #mkdir
-  # #[] should look up by full path, using create and the default filesearcher
-  #   (ie, it parses out parent and name)
-
-
-  #context do
-    #subject { Directory }
-    #it_behaves_like 'a flyweight object'
-  #end
-
-  #integration spec between Directory and Flyweights
-  context 'flyweightyness' do
-    describe 'creating an object' do
-      let!(:first_instance) { Directory.create(parent, name) }
-      subject { Directory.create(parent, name) }
-
-      it { should == first_instance }
-    end
-
-    describe 'deleting an object' do
-
-    end
-
-    describe 'retrieving an object' do
-
-    end
-  end
 end
