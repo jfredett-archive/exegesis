@@ -1,29 +1,34 @@
 require 'unit_spec_helper'
 
 describe FileSearcher do
-  let (:root)                      { double('a fake backend')             }
-  let (:globbed_path)              { double('a fake glob of root with *') }
-  let (:file_searcher)             { FileSearcher.new(root)               }
-  let (:dir)                       { double('a fake directory')           }
-  let (:file)                      { double('a fake file')                }
+  let (:root)          { double('a fake backend')                  }
+  let (:root_path)     { double('a fake path')                     }
+  let (:globbed_path)  { double('a fake glob of root_path with *') }
+  let (:file_searcher) { FileSearcher.new(root)                    }
+  let (:dir)           { double('a fake directory')                }
+  let (:file)          { double('a fake file')                     }
 
   let (:fake_source_file_instance) { double('a fake SourceFile instance') }
   let (:fake_directory_instance)   { double('a fake Directory instance')  }
 
   before do
     File.stub(:directory?).with(dir).and_return(true)
+    File.stub(:file?).with(dir).and_return(false)
+    File.stub(:basename).with(dir).and_return(dir)
+
     File.stub(:directory?).with(file).and_return(false)
     File.stub(:file?).with(file).and_return(true)
-    File.stub(:file?).with(dir).and_return(false)
-    File.stub(:join).and_return(globbed_path)
     File.stub(:basename).with(file).and_return(file)
-    File.stub(:basename).with(dir).and_return(dir)
+
+    File.stub(:join).with(root_path, '*').and_return(globbed_path)
 
     Directory.stub(:new).with(root, dir).and_return(fake_directory_instance)
     SourceFile.stub(:new).with(root, file).and_return(fake_source_file_instance)
 
     fake_source_file_instance.stub(:is_a?).with(SourceFile).and_return(true)
     fake_directory_instance.stub(:is_a?).with(Directory).and_return(true)
+
+    root.stub(:path).and_return(root_path)
   end
 
   subject { file_searcher }
