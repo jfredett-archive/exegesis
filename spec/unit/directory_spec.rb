@@ -14,15 +14,6 @@ describe Directory do
     searcher.stub(:new).and_return(searcher)
   end
 
-  describe 'initialization' do
-    before {
-      searcher.stub!(:new)
-      Directory.new(parent, name, searcher)
-    }
-
-    the(:searcher) { should have_received(:new).with(File.join(parent_path, name)) }
-  end
-
   subject { directory }
 
   describe 'api' do
