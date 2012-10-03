@@ -1,3 +1,4 @@
+# A collection of shared methods for Directories and SourceFiles
 module FileSystemEntity
   def self.included(base)
     base.send(:include , Registerable)
