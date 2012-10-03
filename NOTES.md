@@ -11,7 +11,29 @@
 A suite of raketasks (potentially hidden behind a 'exegesis' script. Adhereing
 to the following model:
 
-    class Project IS_A Directory
+    class Project
+      HAS_MANY BaseDirectories #as a series of methods in a subclass
+      HAS_MANY SourceFiles
+
+    Responsibilities:
+      this represents the root directory of a project. It will be subclassed
+      into project-style specific class. Eg, a RailsProject IS_A Project, it's
+      BaseDirectories are, perhaps, `spec`, `app`, `lib`, and `config`. A
+      GemProject might have `lib`, `spec`, and `bin`, a C project might have
+      `test`, `src`, `vendor`, `obj`, etc.
+
+    NB:
+      It might be interesting to have Projects be able to embed other projects.
+      This could be useful for representing, eg, tests in a C project as a
+      subproject with it's own file-structure and stuff. So that a CProject is
+      now a pair of two underlying `CSourceProject`, each of which has a `src`,
+      `obj`, and `vendor`, which in the one project represents the testing
+      setup, and the other represents the application setup. Possible problem
+      might be trying to get dependencies to work across projects.
+
+    ----------------------------------------------------------------------------
+
+    class BaseDirectory IS_A Directory
       HAS_A Root
       HAS_MANY Directories
       HAS_MANY SourceFiles
