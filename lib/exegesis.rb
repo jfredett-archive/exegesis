@@ -16,6 +16,9 @@ require 'exegesis/flyweight'
 require 'exegesis/registerable'
 
 #Level 3
+require 'exegesis/file_system_entity'
+
+#Level 4
 require 'exegesis/file_searcher'
 require 'exegesis/directory'
 require 'exegesis/project'

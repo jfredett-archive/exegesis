@@ -18,23 +18,16 @@
 #   SourceFile
 #   SourceFileFactory       -- to build the appropriate subclass based on file extenstion
 class SourceFile
-  include Registerable
+  include FileSystemEntity
 
   def initialize(parent, name)
     raise ArgumentError, "parent must be a directory" unless parent.is_a?(Directory)
+
     @name = name
     @ext = File.extname(name)
-    @basename = File.basename(name, @ext)
+    @name = name
     @parent = parent
     @dependencies = []
-  end
-
-  attr_reader :basename, :ext, :parent, :name
-  alias extension ext
-  alias container parent
-
-  def path
-    File.join(parent.path, name)
   end
 
   def content
@@ -45,10 +38,6 @@ class SourceFile
   def depends_on(file)
     raise InvalidDependency unless file.is_a?(SourceFile)
     @dependencies << file
-  end
-
-  def inspect
-    "SourceFile(#{path.inspect})"
   end
 end
 

@@ -12,9 +12,7 @@
 #   SourceFile
 #   Directory
 class Directory
-
-  include Registerable
-  extend Forwardable
+  include FileSystemEntity
 
   # @param parent [Directory] the root directory or project of the project
   # @param name [String] the name of the directory
@@ -29,17 +27,7 @@ class Directory
   delegate [:directories, :files] => :searcher
   alias children directories
 
-  attr_reader :parent
-
-  # A system-path to the current directory
-  def path
-    File.join(parent.path, name)
-  end
-
-  def inspect
-    "#{self.class.inspect}(#{path.inspect})"
-  end
   private
 
-  attr_reader :searcher, :name
+  attr_reader :searcher
 end
