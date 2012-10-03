@@ -1,4 +1,4 @@
-# class Project IS_A Directory
+# class BaseDirectory IS_A Directory
 #  HAS_A Root
 #  HAS_MANY Directories
 #  HAS_MANY SourceFiles (files)
@@ -13,7 +13,7 @@
 # Collaborators:
 #  [Directory]
 #  [SourceFile]
-class Project < Directory
+class BaseDirectory < Directory
   # @param root [String] the root path of the project
   # @param searcher [FileSearcher] an object used to search for files in a given
   #    directory

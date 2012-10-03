@@ -1,12 +1,12 @@
 require 'unit_spec_helper'
 
-describe Project do
+describe BaseDirectory do
   let (:root)     { double('some path to a project directory').as_null_object }
   let (:searcher) { double('directory searcher like FileSearcher') }
   let (:dir)      { double('fake directory') }
   let (:file)     { double('fake file') }
 
-  let (:project) { Project.new(root, searcher) }
+  let (:project) { BaseDirectory.new(root, searcher) }
 
 
   before do
@@ -18,7 +18,7 @@ describe Project do
   describe 'initialization' do
     before {
       searcher.stub!(:new)
-      Project.new(root, searcher)
+      BaseDirectory.new(root, searcher)
     }
 
     the(:searcher) { should have_received(:new).with(project) }

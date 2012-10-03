@@ -5,7 +5,7 @@
 #line is 'load-whenever'
 ################################################################################
 
-#level 0
+#Level 0
 require 'rake'
 require 'rake/ext/string'
 
@@ -17,12 +17,14 @@ require 'exegesis/registerable'
 
 #Level 3
 require 'exegesis/file_system_entity'
+require 'exegesis/file_searcher'
 
 #Level 4
-require 'exegesis/file_searcher'
 require 'exegesis/directory'
-require 'exegesis/project'
 require 'exegesis/source_file'
+
+#Level 5
+require 'exegesis/base_directory'
 
 #-------------------------------------------------------------------------------
 #load whenever
