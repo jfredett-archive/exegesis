@@ -23,7 +23,6 @@ class SourceFile
   def initialize(parent, name)
     raise ArgumentError, "parent must be a directory" unless parent.is_a?(Directory)
 
-    @name = name
     @ext = File.extname(name)
     @name = name
     @parent = parent
