@@ -19,11 +19,6 @@ describe SourceFile do
     File.stub(:read).with(full_path).and_return(content)
   end
 
-  after do
-    SourceFile.clear_registry!
-    Directory.clear_registry!
-  end
-
   describe 'api' do
     context 'basic interface' do
       it { should respond_to :extension }

@@ -16,6 +16,11 @@ RSpec.configure do |config|
     allow_message_expectations_on_nil
   end
 
+  config.after do
+    SourceFile.clear_registry!
+    Directory.clear_registry!
+  end
+
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
   config.include(Bahia)
