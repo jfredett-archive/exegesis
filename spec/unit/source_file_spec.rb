@@ -11,12 +11,14 @@ describe SourceFile do
 
   let(:source_file) { SourceFile.create(parent, name) }
 
-  subject { source_file } 
+  subject { source_file }
 
-  before do 
+  before do
     parent.stub(:path).and_return('/path/to/parent/')
     parent.stub(:is_a?).with(Directory).and_return(true)
-    File.stub(:read).with(full_path).and_return(content) 
+    File.stub(:read).with(full_path).and_return(content)
+  end
+
   after do
     SourceFile.clear_registry!
     Directory.clear_registry!
@@ -38,78 +40,78 @@ describe SourceFile do
     end
 
     context 'dependencies' do
-      it { should respond_to :dependencies } 
-      it { should respond_to :depends_on } 
+      it { should respond_to :dependencies }
+      it { should respond_to :depends_on }
     end
 
     pending 'language identification' do
-      it { should respond_to :language } 
-      it { should respond_to :language? } 
+      it { should respond_to :language }
+      it { should respond_to :language? }
     end
   end
 
   describe '#path' do
-    subject { source_file.path } 
+    subject { source_file.path }
 
-    it { should == full_path } 
+    it { should == full_path }
   end
 
   describe '#extension' do
-    subject { source_file.extension } 
+    subject { source_file.extension }
 
-    it { should == subject.ext } 
-    it { should == extension } 
+    it { should == subject.ext }
+    it { should == extension }
   end
 
   describe '#basename' do
-    subject { source_file.basename } 
+    subject { source_file.basename }
 
-    it { should == basename } 
+    it { should == basename }
   end
 
   describe '#name' do
-    subject { source_file.name } 
+    subject { source_file.name }
 
     it { should == name }
-    it { should == source_file.basename + source_file.ext } 
+    it { should == source_file.basename + source_file.ext }
   end
 
   describe '#parent' do
-    subject { source_file.parent } 
+    subject { source_file.parent }
 
     pending 'reimplementation' do
       it 'raises an error if you try to give a parent that is not a Directory' do
         expect { SourceFile.create(:not_a_dir, name) }.to raise_error ArgumentError
       end
     end
-    it { should == source_file.container } 
+    it { should == source_file.container }
   end
 
   describe '#content' do
-    before { source_file.content } 
+    before { source_file.content }
 
-    the_class(File) { should have_received(:read).with(full_path) } 
+    the_class(File) { should have_received(:read).with(full_path) }
   end
 
   describe '#dependencies' do
-    let(:file) { double('another sourcefile') } 
+    let(:file) { double('another sourcefile') }
     let(:not_a_file) { double('not a sourcefile') }
 
-    before { file.stub(:is_a?).with(SourceFile).and_return(:true) } 
+    before { file.stub(:is_a?).with(SourceFile).and_return(:true) }
 
-    subject { source_file.dependencies } 
+    subject { source_file.dependencies }
 
-    it { should respond_to :each } 
-    it { should be_empty } 
+    it { should respond_to :each }
+    it { should be_empty }
 
     describe '#depends_on' do
-      before { source_file.depends_on(file) } 
+      before { source_file.depends_on(file) }
 
       it { should =~ [file] }
 
       it 'raises unless the dependency is a file' do
-        expect { 
-          source_file.depends_on(not_a_file) 
+        expect {
+          source_file.depends_on(not_a_file)
         }.to raise_error InvalidDependency
       end
     end
