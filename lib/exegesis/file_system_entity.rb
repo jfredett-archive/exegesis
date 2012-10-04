@@ -26,6 +26,27 @@ module FileSystemEntity
       @ext || ""
     end
     alias extension ext
+
+
+    def visit(visitor)
+      visitor.on_enter if visitor.respond_to? :on_enter
+
+      visitor.call(self.class, self)
+
+      if respond_to?(:directories)
+        directories.each do |dir|
+          dir.visit(visitor)
+        end
+      end
+
+      if respond_to?(:files)
+        files.each do |file|
+          file.visit(visitor)
+        end
+      end
+
+      visitor.on_exit if visitor.respond_to? :on_exit
+    end
   end
 end
 
