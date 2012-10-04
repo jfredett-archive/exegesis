@@ -7,6 +7,7 @@ describe FileSearcher do
   let (:file_searcher) { FileSearcher.new(root)                    }
   let (:dir)           { double('a fake directory')                }
   let (:file)          { double('a fake file')                     }
+  let (:file_path)     { double('the fake file path')              }
 
   let (:fake_source_file_instance) { double('a fake SourceFile instance') }
   let (:fake_directory_instance)   { double('a fake Directory instance')  }
@@ -21,6 +22,7 @@ describe FileSearcher do
     File.stub(:basename).with(file).and_return(file)
 
     File.stub(:join).with(root_path, '*').and_return(globbed_path)
+    File.stub(:join).with(root_path, file).and_return(file_path)
 
     Directory.stub(:new).with(root, dir).and_return(fake_directory_instance)
     SourceFile.stub(:new).with(root, file).and_return(fake_source_file_instance)

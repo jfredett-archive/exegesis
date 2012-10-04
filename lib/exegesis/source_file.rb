@@ -20,15 +20,6 @@
 class SourceFile
   include FileSystemEntity
 
-  def initialize(parent, name)
-    raise ArgumentError, "parent must be a directory" unless parent.is_a?(Directory)
-
-    @ext = File.extname(name)
-    @name = name
-    @parent = parent
-    @dependencies = []
-  end
-
   def content
     File.read(path)
   end
@@ -37,6 +28,17 @@ class SourceFile
   def depends_on(file)
     raise InvalidDependency unless file.is_a?(SourceFile)
     @dependencies << file
+  end
+
+  private
+
+  def initialize(parent, name)
+    raise ArgumentError, "parent must be a directory" unless parent.is_a?(Directory)
+
+    @ext = File.extname(name)
+    @name = name
+    @parent = parent
+    @dependencies = []
   end
 end
 

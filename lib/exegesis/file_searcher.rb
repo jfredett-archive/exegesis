@@ -30,7 +30,7 @@ class FileSearcher
 
   #All of the files in the given path
   def files
-    content.select { |s| File.file?(s) }.map { |s| SourceFile.new(parent, File.basename(s)) }
+    content.select { |s| File.file?(s) }.map { |s| SourceFile.create(parent, File.basename(s)) }
   end
 
   #All of the content from the given path

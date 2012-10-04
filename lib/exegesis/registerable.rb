@@ -7,12 +7,12 @@ module Registerable
   end
 
   module ClassMethods
-    def create(parent, name, searcher = FileSearcher)
+    def create(parent, name, *args)
       path = File.join(parent.path, name)
       if registry.has_key?(path)
         registry[path]
       else
-        new(parent, name, searcher).tap do |instance|
+        new(*[parent, name, *args]).tap do |instance|
           registry.register! instance
         end
       end
@@ -26,6 +26,10 @@ module Registerable
           dir
         end
       end
+    end
+
+    def clear_registry!
+      @flyweight.clear! if @flyweight
     end
   end
 
