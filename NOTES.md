@@ -22,6 +22,13 @@ to the following model:
       GemProject might have `lib`, `spec`, and `bin`, a C project might have
       `test`, `src`, `vendor`, `obj`, etc.
 
+      It also provides methods like `#build_skeleton!(dir)` which take a
+      location in the filesystem and build the structure specified by the
+      project.
+
+      It also serves as a point from which we may start a `#visit` to all of
+      it's subdirs and files.
+
     NB:
       It might be interesting to have Projects be able to embed other projects.
       This could be useful for representing, eg, tests in a C project as a
@@ -145,6 +152,31 @@ of it's contents (directories/files/whatever) and apply to each the appropriate
 method from the visitor, with the instance as an argument. The visitor can
 potentially recursively call #visit on directories, which should also support
 this interface
+
+# DSL
+
+w/ the restructure to use the `Project->[BaseDirs]` change, it would be useful to
+have a DSL to specify a project in a simpler way than manually defining a new
+subclass of `Project`. To wit, I rather like:
+
+    project 'rails' do
+      src_dir 'app'
+      src_dir 'lib'
+      src_dir 'db'
+
+      test_dir 'spec'
+      test_dir 'features'
+
+      config_dir 'config'
+
+      file 'Gemfile'
+      file 'Rakefile'
+
+      #etc
+    end
+
+This would define an appropriate `Project` subclass, called 'RailsProject', with methods pointing to
+the various subdirs.
 
 # Features
 
