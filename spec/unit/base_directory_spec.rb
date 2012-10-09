@@ -6,7 +6,7 @@ describe BaseDirectory do
   let (:dir)      { double('fake directory') }
   let (:file)     { double('fake file') }
 
-  let (:project) { BaseDirectory.new(root, searcher) }
+  let (:project) { BaseDirectory.create(root, searcher) }
 
 
   before do
@@ -14,16 +14,6 @@ describe BaseDirectory do
     searcher.stub(:new).and_return(searcher)
     searcher.stub(:search).and_return(searcher)
   end
-
-  describe 'initialization' do
-    before {
-      searcher.stub!(:new)
-      BaseDirectory.new(root, searcher)
-    }
-
-    the(:searcher) { should have_received(:new).with(project) }
-  end
-
 
   context do
     subject { project }

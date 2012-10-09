@@ -14,6 +14,13 @@
 class Directory
   include FileSystemEntity
 
+  delegate [:directories, :files] => :searcher
+  alias children directories
+
+  private
+
+  attr_reader :searcher
+
   # @param parent [Directory] the root directory or project of the project
   # @param name [String] the name of the directory
   # @param searcher [FileSearcher] an object used to search for files in a given
@@ -23,11 +30,4 @@ class Directory
     @name = name
     @searcher = searcher.new(self)
   end
-
-  delegate [:directories, :files] => :searcher
-  alias children directories
-
-  private
-
-  attr_reader :searcher
 end

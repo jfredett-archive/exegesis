@@ -1,7 +1,7 @@
 require 'integration_spec_helper'
 
 describe '#visit' do
-  let (:dir) { BaseDirectory.new('./spec/fake_project') }
+  let (:dir) { BaseDirectory.create('./spec/fake_project') }
 
   context 'visitor with a proc' do
     subject { proc { } }

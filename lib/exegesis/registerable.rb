@@ -36,7 +36,9 @@ module Registerable
       registry.clear!
     end
 
-    def build_path(parent, name)
+    def build_path(*args)
+      parent, name = *args
+      return parent if name.nil?
       File.join(parent.path, name)
     end
   end

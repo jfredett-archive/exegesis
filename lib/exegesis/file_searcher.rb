@@ -25,7 +25,7 @@ class FileSearcher
 
   #All of the directories in the given path
   def directories
-    content.select { |s| File.directory?(s) }.map { |s| Directory.new(parent, File.basename(s)) }
+    content.select { |s| File.directory?(s) }.map { |s| Directory.create(parent, File.basename(s)) }
   end
 
   #All of the files in the given path

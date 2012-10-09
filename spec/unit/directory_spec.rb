@@ -1,11 +1,11 @@
 require 'unit_spec_helper'
 
 describe Directory do
-  let (:parent)      { double('parent directory')            }
-  let (:parent_path) { 'parent/'                             }
-  let (:name)        { 'subdir/'                             }
-  let (:searcher)    { double('searcher')                    }
-  let (:directory)   { Directory.new(parent, name, searcher) }
+  let (:parent)      { double('parent directory')               }
+  let (:parent_path) { 'parent/'                                }
+  let (:name)        { 'subdir/'                                }
+  let (:searcher)    { double('searcher')                       }
+  let (:directory)   { Directory.create(parent, name, searcher) }
 
   before do
     parent.stub(:is_a?).with(Directory).and_return(true)
