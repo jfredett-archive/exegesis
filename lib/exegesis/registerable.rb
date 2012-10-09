@@ -7,14 +7,18 @@ module Registerable
   end
 
   module ClassMethods
-    def create(parent, name, *args)
-      path = File.join(parent.path, name)
-      if registry.has_key?(path)
-        registry[path]
-      else
-        new(*[parent, name, *args]).tap do |instance|
-          registry.register! instance
-        end
+    def create(*args)
+      retrieve(*args) || build(*args)
+    end
+
+    def retrieve(*args)
+      path = build_path(*args.take(2))
+      registry[path] if registry.has_key?(path)
+    end
+
+    def build(*args)
+      new(*args).tap do |instance|
+        registry.register! instance
       end
     end
 
@@ -30,6 +34,9 @@ module Registerable
 
     def clear_registry!
       @flyweight.clear! if @flyweight
+
+    def build_path(parent, name)
+      File.join(parent.path, name)
     end
   end
 
