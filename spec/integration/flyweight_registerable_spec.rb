@@ -42,8 +42,14 @@ describe Flyweight, "mixin", "other objects" do
     end
 
     context 'instance' do
-      subject { Example.new(parent, 'n') }
+      subject { Example.send(:new, parent, 'n') } # to test instance API
       it { should respond_to :path }
+    end
+  end
+
+  describe 'instantiation' do
+    it 'disallows instantiation via #new' do
+      expect { Example.new(parent, 'n') }.to raise_error NoMethodError
     end
   end
 
