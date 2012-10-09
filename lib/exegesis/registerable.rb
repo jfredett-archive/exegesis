@@ -33,7 +33,8 @@ module Registerable
     end
 
     def clear_registry!
-      @flyweight.clear! if @flyweight
+      registry.clear!
+    end
 
     def build_path(parent, name)
       File.join(parent.path, name)
