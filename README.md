@@ -1,9 +1,13 @@
+** Exegesis is a pre-alpha tool. It is not recommended for public consumption **
+
+It'll be 0.1 or better when it's ready.
+
 # Exegesis
 
 Exegesis is a tool for automating many parts of the development of C projects.
 Following a convention-over-configuration model.
 
-It provides tools to: 
+It provides tools to:
 
   * Create skeleton projects
   * Build
