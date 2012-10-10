@@ -2,3 +2,4 @@ pkg
 .rbx
 .yardoc
 doc/
+Gemfile.lock
