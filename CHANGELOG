@@ -1,0 +1,10 @@
+
+* 0.0.2
+	Large amount of functionality in place, including BaseDirectories,
+	Directories, SourceFiles, and Visitors. Internal Architectural stuff also
+	working (objects are stored in flyweights so there are no duplicates and
+	everything stays synced.
+
+* 0.0.1
+
+	Initial Release
