@@ -8,6 +8,7 @@
 #Level 0
 require 'rake'
 require 'rake/ext/string'
+require 'forwardable'
 
 #Level 1
 require 'exegesis/flyweight'

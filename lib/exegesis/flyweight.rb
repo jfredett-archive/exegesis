@@ -1,5 +1,5 @@
 # class Flyweight
-#  
+#
 # Responsibilities:
 #   Provide a registry for an arbitrary number of instances which need to be 
 #   accessed as a single instance.
