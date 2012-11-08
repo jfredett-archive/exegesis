@@ -1,22 +1,27 @@
 require 'unit_spec_helper'
 
 describe SourceFile do
-  let(:basename)  { 'fake'               }
-  let(:extension) { '.c'                 }
-  let(:name)      { basename + extension }
-  let(:parent)    { double('directory')  }
+  let(:basename)     { 'fake'               }
+  let(:extension)    { '.c'                 }
+  let(:name)         { basename + extension }
+  let(:parent)       { double('directory')  }
+  let(:fs_interface) { double('an arbitrary interface to a filesystem') }
 
+  # TODO: Eliminate use of File here? More mocks?
   let(:full_path) { File.join(parent.path, name) }
   let(:content)   { double('content')            }
 
-  let(:source_file) { SourceFile.create(parent, name) }
+  let(:source_file) { SourceFile.create(parent, name, fs_interface) }
+
 
   subject { source_file }
 
   before do
     parent.stub(:path).and_return('/path/to/parent/')
     parent.stub(:is_a?).with(Directory).and_return(true)
-    File.stub(:read).with(full_path).and_return(content)
+
+    fs_interface.stub(:read).with(full_path).and_return(content)
+    fs_interface.stub(:extname).with(name).and_return(extension)
   end
 
   describe 'instantiation' do
@@ -91,7 +96,7 @@ describe SourceFile do
   describe '#content' do
     before { source_file.content }
 
-    the_class(File) { should have_received(:read).with(full_path) }
+    the(:fs_interface) { should have_received(:read).with(full_path) }
   end
 
   describe '#dependencies' do

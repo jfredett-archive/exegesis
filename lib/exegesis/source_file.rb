@@ -21,7 +21,7 @@ class SourceFile
   include FileSystemEntity
 
   def content
-    File.read(path)
+    fs_interface.read(path)
   end
 
   attr_reader :dependencies
@@ -32,14 +32,17 @@ class SourceFile
 
   private
 
-  def initialize(parent, name)
+  def initialize(parent, name, fs_interface = File)
     raise ArgumentError, "parent must be a directory" unless parent.is_a?(Directory)
 
-    @ext = File.extname(name)
+    @fs_interface = fs_interface
+    @ext = fs_interface.extname(name)
     @name = name
     @parent = parent
     @dependencies = []
   end
+
+  attr_reader :fs_interface
 end
 
 class InvalidDependency < StandardError ; end

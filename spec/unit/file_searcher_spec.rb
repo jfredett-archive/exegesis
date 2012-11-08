@@ -1,30 +1,31 @@
 require 'unit_spec_helper'
 
 describe FileSearcher do
-  let (:root)          { double('a fake backend')                  }
-  let (:root_path)     { double('a fake path')                     }
-  let (:globbed_path)  { double('a fake glob of root_path with *') }
-  let (:file_searcher) { FileSearcher.new(root)                    }
-  let (:dir)           { double('a fake directory')                }
-  let (:file)          { double('a fake file')                     }
-  let (:file_path)     { double('the fake file path')              }
-  let (:dir_path)      { double('the directory file path')         }
+  let (:root)          { double('a fake backend')                      }
+  let (:root_path)     { double('a fake path')                         }
+  let (:globbed_path)  { double('a fake glob of root_path with *')     }
+  let (:fs_interface)  { double('a File System Interface like `File`') }
+  let (:file_searcher) { FileSearcher.new(root, fs_interface)          }
+  let (:dir)           { double('a fake directory')                    }
+  let (:file)          { double('a fake file')                         }
+  let (:file_path)     { double('the fake file path')                  }
+  let (:dir_path)      { double('the directory file path')             }
 
   let (:fake_source_file_instance) { double('a fake SourceFile instance') }
   let (:fake_directory_instance)   { double('a fake Directory instance')  }
 
   before do
-    File.stub(:directory?).with(dir).and_return(true)
-    File.stub(:file?).with(dir).and_return(false)
-    File.stub(:basename).with(dir).and_return(dir)
+    fs_interface.stub(:directory?).with(dir).and_return(true)
+    fs_interface.stub(:file?).with(dir).and_return(false)
+    fs_interface.stub(:basename).with(dir).and_return(dir)
 
-    File.stub(:directory?).with(file).and_return(false)
-    File.stub(:file?).with(file).and_return(true)
-    File.stub(:basename).with(file).and_return(file)
+    fs_interface.stub(:directory?).with(file).and_return(false)
+    fs_interface.stub(:file?).with(file).and_return(true)
+    fs_interface.stub(:basename).with(file).and_return(file)
 
-    File.stub(:join).with(root_path, '*').and_return(globbed_path)
-    File.stub(:join).with(root_path, file).and_return(file_path)
-    File.stub(:join).with(root_path, dir).and_return(dir_path)
+    fs_interface.stub(:join).with(root_path, '*').and_return(globbed_path)
+    fs_interface.stub(:join).with(root_path, file).and_return(file_path)
+    fs_interface.stub(:join).with(root_path, dir).and_return(dir_path)
 
     Directory.stub(:new).with(root, dir).and_return(fake_directory_instance)
     SourceFile.stub(:new).with(root, file).and_return(fake_source_file_instance)
