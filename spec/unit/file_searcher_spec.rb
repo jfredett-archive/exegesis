@@ -44,13 +44,15 @@ describe FileSearcher do
     it { should respond_to :content }
   end
 
-  describe '#content' do
-    before do
-      Dir.stub(:[])
-      file_searcher.content
-    end
+  pending "better dependency injection" do
+    describe '#content' do
+      before do
+        Dir.stub(:[])
+        file_searcher.content
+      end
 
-    the(Dir) { should have_received(:[]).with(globbed_path) }
+      the(Dir) { should have_received(:[]).with(globbed_path) }
+    end
   end
 
   context do
