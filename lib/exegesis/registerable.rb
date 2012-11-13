@@ -1,6 +1,5 @@
 module Registerable
   def self.included(base)
-    base.private_class_method :new, :allocate
     base.instance_eval do
       extend  ClassMethods
       include InstanceMethods

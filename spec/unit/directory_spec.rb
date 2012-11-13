@@ -16,12 +16,6 @@ describe Directory do
 
   subject { directory }
 
-  describe 'instantiation' do
-    it 'disallows instantiation via #new' do
-      expect { Directory.new(parent, name, searcher) }.to raise_error NoMethodError
-    end
-  end
-
   describe 'api' do
     it { should respond_to :directories }
     it { should respond_to :parent      }

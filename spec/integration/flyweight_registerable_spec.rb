@@ -47,12 +47,6 @@ describe Flyweight, "mixin", "other objects" do
     end
   end
 
-  describe 'instantiation' do
-    it 'disallows instantiation via #new' do
-      expect { Example.new(parent, 'n') }.to raise_error NoMethodError
-    end
-  end
-
   describe 'creating a new instance' do
     subject { Example.create(parent, 'n') }
   end

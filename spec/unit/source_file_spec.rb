@@ -24,12 +24,6 @@ describe SourceFile do
     fs_interface.stub(:extname).with(name).and_return(extension)
   end
 
-  describe 'instantiation' do
-    it 'disallows instantiation via #new' do
-      expect { SourceFile.new(parent, name) }.to raise_error NoMethodError
-    end
-  end
-
   describe 'api' do
     context 'basic interface' do
       it { should respond_to :extension }

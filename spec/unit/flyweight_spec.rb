@@ -1,16 +1,12 @@
 require 'unit_spec_helper'
 
 describe Flyweight do
-  let (:processor)          { proc { instance_key }     }
-  let (:flyweight)          { Flyweight.new(&processor) }
-  let (:instance)           { double('instance')        }
-  let (:instance_key)       { double('instance_key')    }
+  let (:processor)          { proc { |instance| instance_key }  }
+  let (:flyweight)          { Flyweight.new(&processor)         }
+  let (:instance)           { double('instance')                }
+  let (:instance_key)       { double('instance_key')            }
 
   subject { flyweight }
-
-  before do
-    processor.stub(:call).and_return(instance_key)
-  end
 
   context 'shared examples' do
     shared_examples_for 'flyweight unregistration' do
@@ -48,8 +44,6 @@ describe Flyweight do
     before { flyweight.register!(instance) }
 
     describe '#register! and #register' do
-      the(:processor) { should have_received(:call).with(instance) }
-
       describe 'registering an instance with an already-used key' do
         it 'raises an error' do
           expect { flyweight.register!(instance) }.to raise_error Flyweight::AlreadyRegisteredError
