@@ -26,6 +26,8 @@ require 'exegesis/source_file'
 
 #Level 5
 require 'exegesis/base_directory'
+require 'exegesis/project'
+require 'exegesis/project_ast/node'
 
 #-------------------------------------------------------------------------------
 #load whenever
