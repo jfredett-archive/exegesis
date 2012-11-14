@@ -1,3 +1,9 @@
+= 0.0.3 - 0.0.4
+	* Make sure Forwardable gem dependency gets loaded at the appropriate
+		load-level
+	* Skirt a very rare crash during tests (happens _literally_ only to my one
+		computer) in rubinius 2.0.0rc1
+	* Internal Refactoring to avoid stubbing core classes like `File` and `Dir`
 
 * 0.0.2
 	Large amount of functionality in place, including BaseDirectories,
