@@ -39,7 +39,10 @@ shared_examples_for 'an ast node' do
     it { should respond_to :run }
     it { should respond_to :each }
 
-    its(:class) { should respond_to :child_node }
+    its(:class) { should respond_to :terminal }
+    its(:class) { should respond_to :multiple }
+    its(:class) { should respond_to :nonterminal }
+
     its(:children) { should respond_to :[] }
     its(:children) { should respond_to :[]= }
     its(:children) { should respond_to :has_key? }
@@ -137,3 +140,61 @@ describe AST::Project do
   end
 end
 
+describe AST::Structure do
+  it_behaves_like 'an ast node'
+
+  it 'parses structure calls' do
+    expect {
+      structure do
+        #special directory names -- no scaffolded subdirs allowed
+        src  'src/'
+        obj  'obj/'
+        test 'test/'
+        bin  'bin/'
+        #vendor 'external/'
+
+        file 'README', type: :markdown
+
+        #bare files
+        file 'AUTHORS'
+        file 'CHANGELOG'
+
+        #autogenerate a license of choice
+        license 'BSD3'
+
+        directory 'doc/' do
+          #arbitrary directory, everything below gets prefixed
+          file 'manpage'
+        end
+      end
+    }
+  end
+end
+
+describe AST::Products do
+  it_behaves_like 'an ast node'
+end
+
+describe AST::Dependencies do
+  it_behaves_like 'an ast node'
+end
+
+describe AST::Directory do
+  it_behaves_like 'an ast node'
+end
+
+describe AST::Binary do
+  it_behaves_like 'an ast node'
+end
+
+describe AST::Lib do
+  it_behaves_like 'an ast node'
+end
+
+describe AST::Compiler do
+  it_behaves_like 'an ast node'
+end
+
+describe AST::Package do
+  it_behaves_like 'an ast node'
+end
