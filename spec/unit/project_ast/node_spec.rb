@@ -23,31 +23,47 @@ require 'unit_spec_helper'
 #         compiler name:clang options:'-Wall -Werror' supports:[.c, .cpp]
 #       structure:merge
 #         file location:README type:plain
-#         dir location:foo type:plain
-#           file:nested location:foo type:markdown 
+#         dir:nest location:foo type:plain
+#           file location:foo type:markdown
+#         dir:unnest
 #       products:parse
 #         #.. snip
 #
 # This event trace would not be indented as above, but flat, however, each
 # trace would be predicticable and deterministic, so we could use it as
 # a way to ensure the parse went as expected.
+#
+# TODO: Better Tests
+# TODO: Break up files
+# TODO: Get Rid of hash crap... everything should be an object, just deal with
+#       it.
 
 shared_examples_for 'an ast node' do
   describe 'AST Node API' do
-    it { should respond_to :visit }
+    it { should respond_to :visit    }
     it { should respond_to :children }
-    it { should respond_to :run }
-    it { should respond_to :each }
+    it { should respond_to :run      }
+    it { should respond_to :each     }
 
-    its(:class) { should respond_to :terminal }
-    its(:class) { should respond_to :multiple }
+    its(:class) { should respond_to :terminal    }
+    its(:class) { should respond_to :terminal?   }
+    its(:class) { should respond_to :multiple    }
     its(:class) { should respond_to :nonterminal }
+    its(:class) { should respond_to :terminal!   }
+    its(:class) { should respond_to :name        }
 
-    its(:children) { should respond_to :[] }
-    its(:children) { should respond_to :[]= }
+    its(:children) { should respond_to :[]       }
+    its(:children) { should respond_to :[]=      }
     its(:children) { should respond_to :has_key? }
-
   end
+end
+
+shared_examples_for 'a terminal node' do
+  its(:class) { should be_terminal }
+end
+
+shared_examples_for 'a nonterminal node' do
+  its(:class) { should_not be_terminal }
 end
 
 describe AST::Project do
@@ -171,30 +187,74 @@ describe AST::Structure do
   end
 end
 
+describe AST::SourceFile do
+  it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
+  its('class.name') { should == 'File' }
+end
 describe AST::Products do
   it_behaves_like 'an ast node'
+  it_behaves_like 'a nonterminal node'
 end
 
 describe AST::Dependencies do
   it_behaves_like 'an ast node'
+  it_behaves_like 'a nonterminal node'
 end
 
 describe AST::Directory do
   it_behaves_like 'an ast node'
+  it_behaves_like 'a nonterminal node'
 end
 
 describe AST::Binary do
   it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
 end
 
 describe AST::Lib do
   it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
 end
 
 describe AST::Compiler do
   it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
 end
 
 describe AST::Package do
   it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
+end
+
+describe AST::Src do
+  it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
+end
+
+describe AST::Obj do
+  it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
+end
+
+describe AST::Bin do
+  it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
+end
+
+describe AST::Test do
+  it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
+end
+
+describe AST::License do
+  it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
+end
+
+describe AST::Deps do
+  it_behaves_like 'an ast node'
+  it_behaves_like 'a terminal node'
+
+  its('class.name') { should == 'Dependencies' }
 end
