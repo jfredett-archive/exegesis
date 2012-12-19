@@ -2,7 +2,7 @@ require 'unit_spec_helper'
 
 describe Project do
   let (:proj) do
-    project 'fake' do
+    AST::project 'fake' do
       structure do
         #special directory names -- no scaffolded subdirs allowed
         src  'src/'
@@ -107,4 +107,5 @@ describe Project do
     proj.visit(Vis.new)
   end
 
+  subject { Project.new(proj) }
 end

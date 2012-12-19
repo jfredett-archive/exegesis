@@ -228,9 +228,13 @@ module AST
     nonterminal Dependencies
   end
 
-  def project(name, opts={}, &block)
+  def self.project(name, opts={}, &block)
     Project.new(name, opts, &block)
   end
 end
 
-include AST
+class Project
+  def initialize(project_ast)
+    @project_ast = project_ast
+  end
+end

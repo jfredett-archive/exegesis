@@ -68,7 +68,7 @@ end
 
 describe AST::Project do
   subject do
-    project('foo') do
+    AST::project('foo') do
     end
   end
 
@@ -89,7 +89,7 @@ describe AST::Project do
   describe '#structure' do
     it 'parses structure calls' do
       expect {
-        project 'foo' do
+        AST::project 'foo' do
           structure do
           end
         end
@@ -98,7 +98,7 @@ describe AST::Project do
 
     it 'parses overspecified structure calls' do
       expect {
-        project 'foo' do
+        AST::project 'foo' do
           structure do
           end
 
@@ -112,7 +112,7 @@ describe AST::Project do
   describe '#products' do
     it 'parses #products calls' do
       expect {
-        project 'foo' do
+        AST::project 'foo' do
           products do
           end
         end
@@ -121,7 +121,7 @@ describe AST::Project do
 
     it 'parses overspecified products calls' do
       expect {
-        project 'foo' do
+        AST::project 'foo' do
           products do
           end
 
@@ -135,7 +135,7 @@ describe AST::Project do
   describe '#dependencies' do
     it 'parses #dependencies calls' do
       expect {
-        project 'foo' do
+        AST::project 'foo' do
           dependencies do
           end
         end
@@ -144,7 +144,7 @@ describe AST::Project do
 
     it 'parses overspecified dependencies calls' do
       expect {
-        project 'foo' do
+        AST::project 'foo' do
           dependencies do
           end
 
