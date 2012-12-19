@@ -212,3 +212,20 @@ the various subdirs.
   - set up hooks (run tests, etc)
   - Set up standard docs (README, AUTHORS, LICENSE, etc)
 
+# Notes on how projects should work
+
+* Project is the thing that interfaces with rake.
+  - creating a project creates a series of directory tasks, provides the
+    exegesis DSL for specifying package deps/whatever in whatever language
+  - it should automatically generate `clean`, `distclean`, and `scaffold`
+    tasks, the last of which is just a task that depends on all the directory
+    tasks
+  - it should use the environment for configuration.
+
+* The Project should also automatically generate a default task which builds all
+  the binaries, tasks which build each binary individually, and a `install` task
+  which copies it to the appropriate place on the PATH
+
+* The Project should, in particular, support multi-threaded compilation.
+
+
