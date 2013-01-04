@@ -8,6 +8,11 @@ module AST
     def after_visit!(node)
       #intentionally blank - implement in subclass
     end
+
+    def call(node)
+      return send(node.method_name, node) if respond_to?(node.method_name)
+      unknown(node)
+    end
   end
 
   module Node
@@ -25,6 +30,19 @@ module AST
       end
     end
 
+    module InstanceMethods
+      #this is terrible
+      def method_name
+          #get the classname
+        self.class.name.
+          #remove the module
+          to_s.split('::').last.
+          #convert FooBar -> _Foo_Bar
+          gsub(/[A-Z]/, '_\&').
+          #drop the leading _
+          gsub(/^_/, '').
+          #downcase everything to get foo_bar
+          downcase.to_sym
       end
 
       def visit(visitor)
