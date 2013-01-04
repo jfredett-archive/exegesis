@@ -1,5 +1,15 @@
 # Represents a single node in the AST of a project structure
 module AST
+  class Visitor
+    def before_visit!(node)
+      #intentionally blank - implement in subclass
+    end
+
+    def after_visit!(node)
+      #intentionally blank - implement in subclass
+    end
+  end
+
   module Node
     def self.included(base)
       base.send(:include, InstanceMethods)
@@ -15,30 +25,17 @@ module AST
       end
     end
 
-    class Visitor
-      def before_visit!
-        #intentionally blank - implement in subclass
       end
 
-      def after_visit!
-        #intentionally blank - implement in subclass
-      end
-
-      def call
-        raise "Abstract: Implement in subclass"
-      end
-    end
-
-    module InstanceMethods
       def visit(visitor)
-        visitor.before_visit!
+        visitor.before_visit!(self)
         visitor.call(self)
 
         each do |c|
           c.visit(visitor)
         end
 
-        visitor.after_visit!
+        visitor.after_visit!(self)
         nil
       end
 
