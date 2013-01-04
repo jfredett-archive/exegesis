@@ -81,6 +81,10 @@ module AST
       def terminal?
         self.class.terminal?
       end
+
+      def has_children?
+        children.any?
+      end
     end
 
     module ClassMethods
