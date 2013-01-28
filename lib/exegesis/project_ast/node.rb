@@ -73,10 +73,12 @@ module AST
       end
 
       def initialize(name = nil, opts = {}, &block)
+        @parent = opts[:parent]
         @name = name
         @opts = opts
         instance_eval &block if block_given?
       end
+      attr_reader :parent, :name
 
       def terminal?
         self.class.terminal?
@@ -90,11 +92,11 @@ module AST
     module ClassMethods
       def nonterminal(type)
         raise "NonterminalInTerminalError" if terminal? && binding.pry
-        define_method(type_to_method_name(type)) do |name=nil, opts={}, &block|
+        define_method(_type_to_method_name(type)) do |name=nil, opts={}, &block|
           if children.has_key?(type) and children[type]
             children[type].run(&block)
           else
-            children[type] = type.new(name, opts={}, &block)
+            children[type] = type.new(name, opts.merge({parent: self}), &block)
           end
           children[type]
         end
@@ -103,9 +105,9 @@ module AST
       def terminal(type)
         #should only allow one.
         raise "InvalidNodeTypeError" unless type.terminal? || binding.pry
-        define_method(type_to_method_name(type)) do |name=nil, opts={}, &block|
+        define_method(_type_to_method_name(type)) do |name=nil, opts={}, &block|
           raise "TerminalAlreadySetError" if children.has_key?(type)
-          children[type] = type.new(name, opts, &block)
+          children[type] = type.new(name, opts.merge({parent: self}), &block)
         end
       end
       def terminal!
@@ -117,15 +119,13 @@ module AST
         #should store an entry in #children that is a list of all the instances
         #it sees of this type. eg, `file 'x'; file 'y' #=> children[File] = [File<@name=x>, File<@name=y>]
         raise "InvalidNodeTypeError" unless type.terminal? || binding.pry
-        define_method(type_to_method_name(type)) do |name, opts={}, &block|
+        define_method(_type_to_method_name(type)) do |name, opts={}, &block|
           children[type] ||= ObjectSet.new
-          children[type] << type.new(name, opts, &block)
+          children[type] << type.new(name, opts.merge({parent: self}), &block)
         end
       end
 
-      private
-
-      def type_to_method_name(type)
+      def _type_to_method_name(type)
         if type.respond_to?(:name)
           type.name
         else
@@ -247,8 +247,8 @@ module AST
     nonterminal Dependencies
   end
 
-  def self.project(name, opts={}, &block)
-    Project.new(name, opts, &block)
+  def self.project(name = nil, opts={}, &block)
+    Project.new(name, opts.merge({parent: nil}), &block)
   end
 end
 
