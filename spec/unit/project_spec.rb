@@ -85,27 +85,32 @@ describe Project do
     end
   end
 
-  class Vis
-    def initialize
-      @indent = 0
-    end
-
-    def before_visit!
-      @indent += 3
-    end
-
-    def after_visit!
-      @indent -= 3
-    end
-
-    def call(obj)
-      puts " " * @indent + obj.name.to_s
-    end
-  end
-
-  it '' do
-    proj.visit(Vis.new)
-  end
-
   subject { Project.new(proj) }
+  it { should be_valid } #validations on the 'AST'
+
+  describe 'invalid ASTs' do
+    describe 'project node validations' do
+      context 'name is nil' do
+        let(:project_ast) { AST.project { } }
+        subject { Project.new(project_ast) }
+
+        it { should be_invalid }
+        its(:errors) { should have_key :project }
+      end
+
+      context 'valid project definition' do
+        let(:project_ast) { AST.project('project') { } }
+        subject { Project.new(project_ast) }
+
+        it { should be_valid }
+        its(:errors) { should be_empty }
+      end
+    end
+
+    describe 'structure node validations' do
+    end
+
+  end
+
 end
+

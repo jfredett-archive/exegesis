@@ -107,6 +107,15 @@ describe AST::Project do
         end
       }.to_not raise_error
     end
+
+    it "does not parse if nested incorrectly" do
+      expect { AST::project 'foo' do
+        structure do
+          structure do
+          end
+        end
+      end }.to raise_error
+    end
   end
 
   describe '#products' do
