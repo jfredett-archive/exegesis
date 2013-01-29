@@ -27,7 +27,6 @@ module FileSystemEntity
     end
     alias extension ext
 
-
     def visit(visitor)
       visitor.on_enter if visitor.respond_to? :on_enter
 

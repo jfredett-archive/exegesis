@@ -109,8 +109,6 @@ describe Project do
 
     describe 'structure node validations' do
     end
-
   end
-
 end
 
