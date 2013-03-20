@@ -1,10 +1,10 @@
 require 'unit_spec_helper'
 
-describe Flyweight do
-  let (:processor)          { proc { |instance| instance_key }  }
-  let (:flyweight)          { Flyweight.new(&processor)         }
-  let (:instance)           { double('instance')                }
-  let (:instance_key)       { double('instance_key')            }
+describe Exegesis::Flyweight do
+  let (:processor)          { proc { |instance| instance_key }    }
+  let (:flyweight)          { Exegesis::Flyweight.new(&processor) }
+  let (:instance)           { double('instance')                  }
+  let (:instance_key)       { double('instance_key')              }
 
   subject { flyweight }
 
@@ -17,12 +17,12 @@ describe Flyweight do
 
       describe 'unregistering an unused key' do
         it 'raises an error' do
-          expect { flyweight.unregister!(key) }.to raise_error Flyweight::NoEntryError
+          expect { flyweight.unregister!(key) }.to raise_error Exegesis::Flyweight::NoEntryError
         end
 
         describe '#unregister' do
           it 'raises an error' do
-            expect { flyweight.unregister(key) }.to_not raise_error Flyweight::NoEntryError
+            expect { flyweight.unregister(key) }.to_not raise_error Exegesis::Flyweight::NoEntryError
           end
         end
       end
@@ -46,12 +46,12 @@ describe Flyweight do
     describe '#register! and #register' do
       describe 'registering an instance with an already-used key' do
         it 'raises an error' do
-          expect { flyweight.register!(instance) }.to raise_error Flyweight::AlreadyRegisteredError
+          expect { flyweight.register!(instance) }.to raise_error Exegesis::Flyweight::AlreadyRegisteredError
         end
 
         describe '#register' do
           it 'does not raise an error' do
-            expect { flyweight.register(instance) }.to_not raise_error Flyweight::AlreadyRegisteredError
+            expect { flyweight.register(instance) }.to_not raise_error Exegesis::Flyweight::AlreadyRegisteredError
           end
         end
       end

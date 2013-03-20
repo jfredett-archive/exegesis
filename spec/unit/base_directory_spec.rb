@@ -1,12 +1,12 @@
 require 'unit_spec_helper'
 
-describe BaseDirectory do
+describe Exegesis::BaseDirectory do
   let (:root)     { double('some path to a project directory').as_null_object }
   let (:searcher) { double('directory searcher like FileSearcher') }
   let (:dir)      { double('fake directory') }
   let (:file)     { double('fake file') }
 
-  let (:project) { BaseDirectory.create(root, searcher) }
+  let (:project) { Exegesis::BaseDirectory.create(root, searcher) }
 
   before do
     searcher.stub(:[]).with(root + '*').and_return([dir, file])
@@ -19,7 +19,7 @@ describe BaseDirectory do
   it_should_behave_like 'a FileSystemEntity'
 
   describe 'api' do
-    it { should be_a Directory }
+    it { should be_a Exegesis::Directory }
     it { should respond_to :root }
     it { should respond_to :directories }
     it { should respond_to :files }

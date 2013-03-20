@@ -1,7 +1,8 @@
 require 'unit_spec_helper'
 
-describe Project do
-  let (:proj) do
+describe Exegesis::Project do
+  let (:config_content) do
+    %{
     AST::project 'fake' do
       structure do
         #special directory names -- no scaffolded subdirs allowed
@@ -83,12 +84,24 @@ describe Project do
           #no script, manual install required, automatic check still provided in
       end
     end
+    }
   end
 
-  subject { Project.new(proj) }
-  it { should be_valid } #validations on the 'AST'
+  let(:project_directory) { double("base directory") }
 
+  let(:exegesis_file) { double('exegesis config file', name: 'exegesis', content: config_content) }
+
+  before do
+    project_directory.stub("files").and_return([ exegesis_file ])
+  end
+
+  subject { Exegesis::Project.new(project_directory) }
+  its(:config) { should be_valid } #validations on the 'AST'
+
+
+  #put this in it's own specfile.
   describe 'invalid ASTs' do
+    pending
     describe 'project node validations' do
       context 'name is nil' do
         let(:project_ast) { AST.project { } }
