@@ -15,30 +15,30 @@ describe BaseDirectory do
     searcher.stub(:search).and_return(searcher)
   end
 
-  context do
-    subject { project }
+  subject { project }
 
-    describe 'api' do
-      it { should be_a Directory }
-      it { should respond_to :root }
-      it { should respond_to :directories }
-      it { should respond_to :files }
-    end
+  it_should_behave_like 'a FileSystemEntity'
 
-    describe '#root' do
-      subject { project.root }
-      it { should == root }
-    end
-
-    it { should delegate(:files).to(searcher) }
-    it { should delegate(:directories).to(searcher) }
-
-    #it should also provide interface for
-    #  * creating files/directories
-    #    - something like `directories << Directory('foo')` ?
-    #
-    #  *
-    #
-    #it should also have a #visit method, see the NOTES doc for details on that
+  describe 'api' do
+    it { should be_a Directory }
+    it { should respond_to :root }
+    it { should respond_to :directories }
+    it { should respond_to :files }
   end
+
+  describe '#root' do
+    subject { project.root }
+    it { should == root }
+  end
+
+  it { should delegate(:files).to(searcher) }
+  it { should delegate(:directories).to(searcher) }
+
+  #it should also provide interface for
+  #  * creating files/directories
+  #    - something like `directories << Directory('foo')` ?
+  #
+  #  *
+  #
+  #it should also have a #visit method, see the NOTES doc for details on that
 end

@@ -13,8 +13,9 @@ describe SourceFile do
 
   let(:source_file) { SourceFile.create(parent, name, fs_interface) }
 
-
   subject { source_file }
+
+  it_should_behave_like 'a FileSystemEntity'
 
   before do
     parent.stub(:path).and_return('/path/to/parent/')

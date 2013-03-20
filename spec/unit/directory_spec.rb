@@ -16,12 +16,15 @@ describe Directory do
 
   subject { directory }
 
+  it_should_behave_like 'a FileSystemEntity'
+
   describe 'api' do
     it { should respond_to :directories }
     it { should respond_to :parent      }
     it { should respond_to :files       }
     it { should respond_to :path        }
     it { should respond_to :children    }
+    it { should respond_to :[]          }
 
     its(:class) { should respond_to :create }
   end
