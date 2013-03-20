@@ -1,3 +1,18 @@
+class Project
+  def initialize(base_directory, searcher = FileSearcher)
+    @searcher = searcher
+    @base_directory = case base_directory
+                      when String # assume it's a path to a directory
+                        BaseDirectory.new(base_directory)
+                      when BaseDirectory # use it
+                        base_directory
+                      when Directory # grab it's path and make it a base directory
+                        BaseDirectory.new(base_directory.path)
+                      end
+  end
+end
+
+
 #class DirectoryStructure
   #def initialize
     #@base_directory = BaseDirectory.new('./')
@@ -21,7 +36,7 @@
   #end
 #end
 
-class Project
+#class Project
   #include Rake::DSL
 
   #def initialize(name, searcher = FileSearcher)
@@ -98,4 +113,4 @@ class Project
 #def project(&block)
   #project = Project.new(&block)
   #project.install_rake_tasks!
-end
+#end

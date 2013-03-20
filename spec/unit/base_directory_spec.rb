@@ -8,7 +8,6 @@ describe BaseDirectory do
 
   let (:project) { BaseDirectory.create(root, searcher) }
 
-
   before do
     searcher.stub(:[]).with(root + '*').and_return([dir, file])
     searcher.stub(:new).and_return(searcher)

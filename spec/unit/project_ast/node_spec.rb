@@ -267,3 +267,12 @@ describe AST::Deps do
 
   its('class.name') { should == 'Dependencies' }
 end
+
+describe AST::Visitor do
+  pending do
+    it 'dispatches on type'
+    it 'calls before hook'
+    it 'calls after hook'
+    it 'calls #unknown for unknown node types'
+  end
+end

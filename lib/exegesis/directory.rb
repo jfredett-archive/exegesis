@@ -17,6 +17,14 @@ class Directory
   delegate [:directories, :files] => :searcher
   alias children directories
 
+  def find_directory(dirname)
+    directories.select { |d| d.name == dirname }.first
+  end
+
+  def find_file(filename)
+    files.select { |f| f.name == filename }.first
+  end
+
   private
 
   attr_reader :searcher
