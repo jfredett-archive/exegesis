@@ -1,5 +1,6 @@
 require 'unit_spec_helper'
 
+# TODO: Promote this into an integration spec, just test API level stuff here.
 describe Exegesis::Project do
   let (:config_content) do
     %{
@@ -92,7 +93,7 @@ describe Exegesis::Project do
   let(:exegesis_file) { double('exegesis config file', name: 'exegesis', content: config_content) }
 
   before do
-    project_directory.stub("files").and_return([ exegesis_file ])
+    project_directory.stub("find_file").with('exegesis').and_return(exegesis_file)
   end
 
   subject { Exegesis::Project.new(project_directory) }
