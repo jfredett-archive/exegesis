@@ -11,6 +11,9 @@ require 'rspec-spies'
 #include helpers
 Dir["./spec/helpers/*.rb"].each { |file| require file }
 
+#include shared examples
+Dir["./spec/shared/*_examples.rb"].each { |file| require file }
+
 RSpec.configure do |config|
   config.before do
     allow_message_expectations_on_nil
