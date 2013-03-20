@@ -1,11 +1,11 @@
 require 'unit_spec_helper'
 
-describe FileSearcher do
+describe Exegesis::FileSearcher do
   let (:root)          { double('a fake backend')                      }
   let (:root_path)     { double('a fake path')                         }
   let (:globbed_path)  { double('a fake glob of root_path with *')     }
   let (:fs_interface)  { double('a File System Interface like `File`') }
-  let (:file_searcher) { FileSearcher.new(root, fs_interface)          }
+  let (:file_searcher) { Exegesis::FileSearcher.new(root, fs_interface)          }
   let (:dir)           { double('a fake directory')                    }
   let (:file)          { double('a fake file')                         }
   let (:file_path)     { double('the fake file path')                  }
@@ -27,11 +27,11 @@ describe FileSearcher do
     fs_interface.stub(:join).with(root_path, file).and_return(file_path)
     fs_interface.stub(:join).with(root_path, dir).and_return(dir_path)
 
-    Directory.stub(:new).with(root, dir).and_return(fake_directory_instance)
-    SourceFile.stub(:new).with(root, file).and_return(fake_source_file_instance)
+    Exegesis::Directory.stub(:new).with(root, dir).and_return(fake_directory_instance)
+    Exegesis::SourceFile.stub(:new).with(root, file).and_return(fake_source_file_instance)
 
-    fake_source_file_instance.stub(:is_a?).with(SourceFile).and_return(true)
-    fake_directory_instance.stub(:is_a?).with(Directory).and_return(true)
+    fake_source_file_instance.stub(:is_a?).with(Exegesis::SourceFile).and_return(true)
+    fake_directory_instance.stub(:is_a?).with(Exegesis::Directory).and_return(true)
 
     root.stub(:path).and_return(root_path)
   end
@@ -67,8 +67,8 @@ describe FileSearcher do
       it { should contain(fake_directory_instance)   }
       it { should exclude(fake_source_file_instance) }
 
-      the_class(Directory) { should have_received(:new).with(root, dir) }
-      the_class(SourceFile) { should_not have_received(:new) }
+      the_class(Exegesis::Directory) { should have_received(:new).with(root, dir) }
+      the_class(Exegesis::SourceFile) { should_not have_received(:new) }
     end
 
     describe '#files' do
@@ -78,8 +78,8 @@ describe FileSearcher do
       it { should contain(fake_source_file_instance) }
       it { should exclude(fake_directory_instance)   }
 
-      the_class(Directory) { should_not have_received(:new) }
-      the_class(SourceFile) { should have_received(:new).with(root, file) }
+      the_class(Exegesis::Directory) { should_not have_received(:new) }
+      the_class(Exegesis::SourceFile) { should have_received(:new).with(root, file) }
     end
   end
 end

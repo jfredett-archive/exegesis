@@ -20,8 +20,8 @@ RSpec.configure do |config|
   end
 
   config.after do
-    SourceFile.clear_registry!
-    Directory.clear_registry!
+    Exegesis::SourceFile.clear_registry!
+    Exegesis::Directory.clear_registry!
   end
 
   config.treat_symbols_as_metadata_keys_with_true_values = true
