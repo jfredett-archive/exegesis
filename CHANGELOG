@@ -1,4 +1,4 @@
-= 0.0.3 - 0.0.4
+* 0.0.3 - 0.0.4
 	* Make sure Forwardable gem dependency gets loaded at the appropriate
 		load-level
 	* Skirt a very rare crash during tests (happens _literally_ only to my one
@@ -12,5 +12,4 @@
 	everything stays synced.
 
 * 0.0.1
-
 	Initial Release
