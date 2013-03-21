@@ -30,7 +30,6 @@ require 'exegesis/ast'
 
 #Level 6
 require 'exegesis/configuration'
-require 'exegesis/project'
 
 #-------------------------------------------------------------------------------
 #load whenever

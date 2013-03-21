@@ -1,7 +1,7 @@
 require 'unit_spec_helper'
 
 # TODO: Promote this into an integration spec, just test API level stuff here.
-describe Exegesis::Project do
+describe Exegesis::Configuration do
   let (:config_content) do
     %{
     AST::project 'fake' do
@@ -96,12 +96,13 @@ describe Exegesis::Project do
     project_directory.stub("find_file").with('exegesis').and_return(exegesis_file)
   end
 
-  subject { Exegesis::Project.new(project_directory) }
+  subject { Exegesis::Configuration.new(project_directory) }
+  it { should be_valid } #validations on the 'AST'
 
   pending 'reorganizing of spec' do
-    its(:config) { should be_valid } #validations on the 'AST'
 
     #put this in it's own specfile.
+    # ast/validator_spec.rb
     describe 'invalid ASTs' do
       describe 'project node validations' do
         context 'name is nil' do
