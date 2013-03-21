@@ -101,7 +101,6 @@ describe Exegesis::Project do
   pending 'reorganizing of spec' do
     its(:config) { should be_valid } #validations on the 'AST'
 
-
     #put this in it's own specfile.
     describe 'invalid ASTs' do
       describe 'project node validations' do
