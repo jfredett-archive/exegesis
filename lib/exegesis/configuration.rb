@@ -1,5 +1,7 @@
 module Exegesis
   class Configuration
+    extend Forwardable
+
     def initialize(base_directory, searcher = FileSearcher)
       @searcher = searcher
       @base_directory = case base_directory
@@ -15,6 +17,8 @@ module Exegesis
     end
     attr_reader :searcher, :base_directory
 
+    delegate [:valid?, :invalid?, :errors] => :validation
+
     def config
       # read the file, build the project AST from it.
       @config ||= eval base_directory.find_file('exegesis').content
@@ -26,17 +30,5 @@ module Exegesis
       end
     end
     alias validation validate!
-
-    def valid?
-      validation.result
-    end
-
-    def invalid?
-      not valid?
-    end
-
-    def errors
-      validation.errors
-    end
   end
 end
