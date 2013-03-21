@@ -32,3 +32,4 @@ require 'exegesis/ast/project'
 
 require 'exegesis/ast/visitor'
 
+require 'exegesis/ast/validator'
