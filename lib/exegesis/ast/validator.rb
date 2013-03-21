@@ -61,6 +61,11 @@ module Exegesis
       def result
         errors.empty?
       end
+      alias valid? result
+
+      def invalid?
+        not valid?
+      end
 
       private
 
