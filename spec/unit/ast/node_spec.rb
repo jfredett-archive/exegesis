@@ -66,9 +66,9 @@ shared_examples_for 'a nonterminal node' do
   its(:class) { should_not be_terminal }
 end
 
-describe AST::Project do
+describe Exegesis::AST::Project do
   subject do
-    AST::project('foo') do
+    Exegesis::AST::project('foo') do
     end
   end
 
@@ -81,15 +81,15 @@ describe AST::Project do
     it { should respond_to :products     }
     it { should respond_to :dependencies }
 
-    its(:structure)    { should be_a_kind_of AST::Structure    }
-    its(:products)     { should be_a_kind_of AST::Products     }
-    its(:dependencies) { should be_a_kind_of AST::Dependencies }
+    its(:structure)    { should be_a_kind_of Exegesis::AST::Structure    }
+    its(:products)     { should be_a_kind_of Exegesis::AST::Products     }
+    its(:dependencies) { should be_a_kind_of Exegesis::AST::Dependencies }
   end
 
   describe '#structure' do
     it 'parses structure calls' do
       expect {
-        AST::project 'foo' do
+        Exegesis::AST::project 'foo' do
           structure do
           end
         end
@@ -98,7 +98,7 @@ describe AST::Project do
 
     it 'parses overspecified structure calls' do
       expect {
-        AST::project 'foo' do
+        Exegesis::AST::project 'foo' do
           structure do
           end
 
@@ -109,7 +109,7 @@ describe AST::Project do
     end
 
     it "does not parse if nested incorrectly" do
-      expect { AST::project 'foo' do
+      expect { Exegesis::AST::project 'foo' do
         structure do
           structure do
           end
@@ -121,7 +121,7 @@ describe AST::Project do
   describe '#products' do
     it 'parses #products calls' do
       expect {
-        AST::project 'foo' do
+        Exegesis::AST::project 'foo' do
           products do
           end
         end
@@ -130,7 +130,7 @@ describe AST::Project do
 
     it 'parses overspecified products calls' do
       expect {
-        AST::project 'foo' do
+        Exegesis::AST::project 'foo' do
           products do
           end
 
@@ -144,7 +144,7 @@ describe AST::Project do
   describe '#dependencies' do
     it 'parses #dependencies calls' do
       expect {
-        AST::project 'foo' do
+        Exegesis::AST::project 'foo' do
           dependencies do
           end
         end
@@ -153,7 +153,7 @@ describe AST::Project do
 
     it 'parses overspecified dependencies calls' do
       expect {
-        AST::project 'foo' do
+        Exegesis::AST::project 'foo' do
           dependencies do
           end
 
@@ -165,7 +165,7 @@ describe AST::Project do
   end
 end
 
-describe AST::Structure do
+describe Exegesis::AST::Structure do
   it_behaves_like 'an ast node'
 
   it 'parses structure calls' do
@@ -196,79 +196,79 @@ describe AST::Structure do
   end
 end
 
-describe AST::SourceFile do
+describe Exegesis::AST::SourceFile do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
   its('class.name') { should == 'File' }
 end
-describe AST::Products do
+describe Exegesis::AST::Products do
   it_behaves_like 'an ast node'
   it_behaves_like 'a nonterminal node'
 end
 
-describe AST::Dependencies do
+describe Exegesis::AST::Dependencies do
   it_behaves_like 'an ast node'
   it_behaves_like 'a nonterminal node'
 end
 
-describe AST::Directory do
+describe Exegesis::AST::Directory do
   it_behaves_like 'an ast node'
   it_behaves_like 'a nonterminal node'
 end
 
-describe AST::Binary do
+describe Exegesis::AST::Binary do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 end
 
-describe AST::Lib do
+describe Exegesis::AST::Lib do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 end
 
-describe AST::Compiler do
+describe Exegesis::AST::Compiler do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 end
 
-describe AST::Package do
+describe Exegesis::AST::Package do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 end
 
-describe AST::Src do
+describe Exegesis::AST::Src do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 end
 
-describe AST::Obj do
+describe Exegesis::AST::Obj do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 end
 
-describe AST::Bin do
+describe Exegesis::AST::Bin do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 end
 
-describe AST::Test do
+describe Exegesis::AST::Test do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 end
 
-describe AST::License do
+describe Exegesis::AST::License do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 end
 
-describe AST::Deps do
+describe Exegesis::AST::Deps do
   it_behaves_like 'an ast node'
   it_behaves_like 'a terminal node'
 
   its('class.name') { should == 'Dependencies' }
 end
 
-describe AST::Visitor do
+describe Exegesis::AST::Visitor do
   pending do
     it 'dispatches on type'
     it 'calls before hook'

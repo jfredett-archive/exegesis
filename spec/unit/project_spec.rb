@@ -64,7 +64,7 @@ describe Exegesis::Project do
                  options:  '-Wall -Werror',
                  supports: ['.c', '.cpp']
 
-        compiler name: 'thrift',
+      compiler name: 'thrift',
                  supports: '.thrift'
 
         #TODO: Supporting multiple build specifications, perhaps break compiler
@@ -97,31 +97,33 @@ describe Exegesis::Project do
   end
 
   subject { Exegesis::Project.new(project_directory) }
-  its(:config) { should be_valid } #validations on the 'AST'
+
+  pending 'reorganizing of spec' do
+    its(:config) { should be_valid } #validations on the 'AST'
 
 
-  #put this in it's own specfile.
-  describe 'invalid ASTs' do
-    pending
-    describe 'project node validations' do
-      context 'name is nil' do
-        let(:project_ast) { AST.project { } }
-        subject { Project.new(project_ast) }
+    #put this in it's own specfile.
+    describe 'invalid ASTs' do
+      describe 'project node validations' do
+        context 'name is nil' do
+          let(:project_ast) { Exegesis::AST.project { } }
+          subject { Exegesis::AST::Project.new(project_ast) }
 
-        it { should be_invalid }
-        its(:errors) { should have_key :project }
+          it { should be_invalid }
+          its(:errors) { should have_key :project }
+        end
+
+        context 'valid project definition' do
+          let(:project_ast) { Exegesis::AST.project('project') { } }
+          subject { Exegesis::AST::Project.new(project_ast) }
+
+          it { should be_valid }
+          its(:errors) { should be_empty }
+        end
       end
 
-      context 'valid project definition' do
-        let(:project_ast) { AST.project('project') { } }
-        subject { Project.new(project_ast) }
-
-        it { should be_valid }
-        its(:errors) { should be_empty }
+      describe 'structure node validations' do
       end
-    end
-
-    describe 'structure node validations' do
     end
   end
 end
