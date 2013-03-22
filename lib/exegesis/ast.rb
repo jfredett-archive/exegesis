@@ -1,11 +1,3 @@
-module Exegesis
-  module AST
-    def self.project(name = nil, opts={}, &block)
-      Exegesis::AST::Project.new(name, opts.merge({parent: nil}), &block)
-    end
-  end
-end
-
 require 'exegesis/ast/object_set'
 require 'exegesis/ast/node'
 

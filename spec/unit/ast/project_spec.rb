@@ -2,7 +2,7 @@ require 'unit_spec_helper'
 
 describe Exegesis::AST::Project do
   subject do
-    Exegesis::AST::project('foo') do
+    project('foo') do
     end
   end
 
@@ -23,7 +23,7 @@ describe Exegesis::AST::Project do
   describe '#structure' do
     it 'parses structure calls' do
       expect {
-        Exegesis::AST::project 'foo' do
+        project 'foo' do
           structure do
           end
         end
@@ -32,7 +32,7 @@ describe Exegesis::AST::Project do
 
     it 'parses overspecified structure calls' do
       expect {
-        Exegesis::AST::project 'foo' do
+        project 'foo' do
           structure do
           end
 
@@ -43,7 +43,7 @@ describe Exegesis::AST::Project do
     end
 
     it "does not parse if nested incorrectly" do
-      expect { Exegesis::AST::project 'foo' do
+      expect { project 'foo' do
         structure do
           structure do
           end
@@ -55,7 +55,7 @@ describe Exegesis::AST::Project do
   describe '#products' do
     it 'parses #products calls' do
       expect {
-        Exegesis::AST::project 'foo' do
+        project 'foo' do
           products do
           end
         end
@@ -64,7 +64,7 @@ describe Exegesis::AST::Project do
 
     it 'parses overspecified products calls' do
       expect {
-        Exegesis::AST::project 'foo' do
+        project 'foo' do
           products do
           end
 
@@ -78,7 +78,7 @@ describe Exegesis::AST::Project do
   describe '#dependencies' do
     it 'parses #dependencies calls' do
       expect {
-        Exegesis::AST::project 'foo' do
+        project 'foo' do
           dependencies do
           end
         end
@@ -87,7 +87,7 @@ describe Exegesis::AST::Project do
 
     it 'parses overspecified dependencies calls' do
       expect {
-        Exegesis::AST::project 'foo' do
+        project 'foo' do
           dependencies do
           end
 

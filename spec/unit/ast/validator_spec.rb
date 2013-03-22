@@ -5,14 +5,14 @@ describe Exegesis::AST::Validator do
       before { ast.visit(validator) }
 
       context 'name is nil' do
-        let(:ast) { Exegesis::AST.project { } }
+        let(:ast) { project { } }
 
         it { should be_invalid }
         its(:errors) { should have_key :project }
       end
 
       context 'valid project definition' do
-        let(:ast) { Exegesis::AST.project('project') { } }
+        let(:ast) { project('project') { } }
 
         it { should be_valid }
         its(:errors) { should be_empty }

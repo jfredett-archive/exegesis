@@ -51,3 +51,8 @@ require 'exegesis/version'
 # Though C is presently the only supported language, it is the aim of Exegesis to
 # support tooling for other compiled languages.
 module Exegesis; end
+
+# The top level method to define a configuration
+def project(name = nil, opts={}, &block)
+  Exegesis::AST::Project.new(name, opts.merge({parent: nil}), &block)
+end
