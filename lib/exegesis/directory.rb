@@ -19,7 +19,7 @@ module Exegesis
     alias children directories
 
     def find_directory(dirname)
-      directories.select { |d| d.name == dirname }.first
+      directories.select { |d| d.name == dirname || d.name + '/' == dirname }.first
     end
 
     def find_file(filename)
