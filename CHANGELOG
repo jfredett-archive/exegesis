@@ -1,3 +1,13 @@
+* 0.0.5
+	* Split up the project into three projects
+		- Exegesis remains as the FileSystem API
+		- Katuv is a new tool for defining and dealing with internal DSLs
+		- Eisegesis is the build tool proper, which uses Katuv and Exegesis to
+		provide build related functionality.
+	* Prepare for splitting out Drosophila, which contains the flyweight
+	implementation (mostly so I never have to write another Flyweight again)
+	* Update some docs to reflect the changes
+
 * 0.0.3 - 0.0.4
 	* Make sure Forwardable gem dependency gets loaded at the appropriate
 		load-level
