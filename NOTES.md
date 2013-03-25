@@ -1,3 +1,10 @@
+# Nota Bene
+
+Much of this is out of date, now that things are split up. It remains as an
+interesting relic of a time long since forgotten. Some day it will be
+unceremoniously killed.
+
+
 # Basic structure
 
 ## Implementation
