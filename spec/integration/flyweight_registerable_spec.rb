@@ -1,9 +1,9 @@
 require 'integration_spec_helper'
 
-describe Flyweight, "mixin", "other objects" do
+describe Exegesis::Flyweight, "mixin", "other objects" do
   before do
     class Example
-      include Registerable
+      include Exegesis::Registerable
       def initialize(parent, name, *args)
         @parent = parent
         @name = name

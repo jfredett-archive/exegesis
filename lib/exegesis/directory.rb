@@ -11,23 +11,33 @@
 # Collaborators:
 #   SourceFile
 #   Directory
-class Directory
-  include FileSystemEntity
+module Exegesis
+  class Directory
+    include FileSystemEntity
 
-  delegate [:directories, :files] => :searcher
-  alias children directories
+    delegate [:directories, :files] => :searcher
+    alias children directories
 
-  private
+    def find_directory(dirname)
+      directories.select { |d| d.name == dirname || d.name + '/' == dirname }.first
+    end
 
-  attr_reader :searcher
+    def find_file(filename)
+      files.select { |f| f.name == filename }.first
+    end
 
-  # @param parent [Directory] the root directory or project of the project
-  # @param name [String] the name of the directory
-  # @param searcher [FileSearcher] an object used to search for files in a given
-  #    directory
-  def initialize(parent, name, searcher = FileSearcher)
-    @parent = parent
-    @name = name
-    @searcher = searcher.new(self)
+    private
+
+    attr_reader :searcher
+
+    # @param parent [Directory] the root directory or project of the project
+    # @param name [String] the name of the directory
+    # @param searcher [FileSearcher] an object used to search for files in a given
+    #    directory
+    def initialize(parent, name, searcher = FileSearcher)
+      @parent = parent
+      @name = name
+      @searcher = searcher.new(self)
+    end
   end
 end

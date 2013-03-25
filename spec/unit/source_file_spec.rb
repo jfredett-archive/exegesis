@@ -1,6 +1,6 @@
 require 'unit_spec_helper'
 
-describe SourceFile do
+describe Exegesis::SourceFile do
   let(:basename)     { 'fake'               }
   let(:extension)    { '.c'                 }
   let(:name)         { basename + extension }
@@ -11,14 +11,15 @@ describe SourceFile do
   let(:full_path) { File.join(parent.path, name) }
   let(:content)   { double('content')            }
 
-  let(:source_file) { SourceFile.create(parent, name, fs_interface) }
-
+  let(:source_file) { Exegesis::SourceFile.create(parent, name, fs_interface) }
 
   subject { source_file }
 
+  it_should_behave_like 'a FileSystemEntity'
+
   before do
     parent.stub(:path).and_return('/path/to/parent/')
-    parent.stub(:is_a?).with(Directory).and_return(true)
+    parent.stub(:is_a?).with(Exegesis::Directory).and_return(true)
 
     fs_interface.stub(:read).with(full_path).and_return(content)
     fs_interface.stub(:extname).with(name).and_return(extension)
@@ -81,7 +82,7 @@ describe SourceFile do
 
     pending 'reimplementation' do
       it 'raises an error if you try to give a parent that is not a Directory' do
-        expect { SourceFile.create(:not_a_dir, name) }.to raise_error ArgumentError
+        expect { Exegesis::SourceFile.create(:not_a_dir, name) }.to raise_error ArgumentError
       end
     end
     it { should == source_file.container }
@@ -97,7 +98,7 @@ describe SourceFile do
     let(:file) { double('another sourcefile') }
     let(:not_a_file) { double('not a sourcefile') }
 
-    before { file.stub(:is_a?).with(SourceFile).and_return(:true) }
+    before { file.stub(:is_a?).with(Exegesis::SourceFile).and_return(:true) }
 
     subject { source_file.dependencies }
 
@@ -112,7 +113,7 @@ describe SourceFile do
       it 'raises unless the dependency is a file' do
         expect {
           source_file.depends_on(not_a_file)
-        }.to raise_error InvalidDependency
+        }.to raise_error Exegesis::InvalidDependency
       end
     end
   end

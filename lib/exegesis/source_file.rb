@@ -17,32 +17,34 @@
 # Collaborators:
 #   SourceFile
 #   SourceFileFactory       -- to build the appropriate subclass based on file extenstion
-class SourceFile
-  include FileSystemEntity
+module Exegesis
+  class SourceFile
+    include FileSystemEntity
 
-  def content
-    fs_interface.read(path)
+    def content
+      fs_interface.read(path)
+    end
+
+    attr_reader :dependencies
+    def depends_on(file)
+      raise InvalidDependency unless file.is_a?(SourceFile)
+      @dependencies << file
+    end
+
+    private
+
+    def initialize(parent, name, fs_interface = File)
+      raise ArgumentError, "parent must be a directory" unless parent.is_a?(Directory)
+
+      @fs_interface = fs_interface
+      @ext = fs_interface.extname(name)
+      @name = name
+      @parent = parent
+      @dependencies = []
+    end
+
+    attr_reader :fs_interface
   end
 
-  attr_reader :dependencies
-  def depends_on(file)
-    raise InvalidDependency unless file.is_a?(SourceFile)
-    @dependencies << file
-  end
-
-  private
-
-  def initialize(parent, name, fs_interface = File)
-    raise ArgumentError, "parent must be a directory" unless parent.is_a?(Directory)
-
-    @fs_interface = fs_interface
-    @ext = fs_interface.extname(name)
-    @name = name
-    @parent = parent
-    @dependencies = []
-  end
-
-  attr_reader :fs_interface
+  class InvalidDependency < StandardError ; end
 end
-
-class InvalidDependency < StandardError ; end

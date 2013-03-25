@@ -13,17 +13,19 @@
 # Collaborators:
 #  [Directory]
 #  [SourceFile]
-class BaseDirectory < Directory
-  # @param root [String] the root path of the project
-  # @param searcher [FileSearcher] an object used to search for files in a given
-  #    directory
-  def initialize(root, searcher = FileSearcher)
-    super(nil, root, searcher)
-  end
+module Exegesis
+  class BaseDirectory < Directory
+    # @param root [String] the root path of the project
+    # @param searcher [FileSearcher] an object used to search for files in a given
+    #    directory
+    def initialize(root, searcher = FileSearcher)
+      super(nil, root, searcher)
+    end
 
-  # The path to the root of the project
-  def path
-    name
+    # The path to the root of the project
+    def path
+      name
+    end
+    alias root path
   end
-  alias root path
 end
