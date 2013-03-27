@@ -11,6 +11,9 @@ end
 
 group :development do
   gem 'pry'
+  gem 'flog'
+  gem 'flay'
+  gem 'mutant'
 end
 
 group :test do
