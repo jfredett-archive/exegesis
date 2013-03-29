@@ -2,7 +2,7 @@
 
 It'll be 0.1 or better when it's ready.
 
-# Exegesis [![Gem Version](https://badge.fury.io/rb/exegesis.png)](http://badge.fury.io/rb/exegesis) [![Build Status](https://travis-ci.org/jfredett/exegesis.png?branch=master)](http://travis-ci.org/jfredett/exegesis) [![Code Climate](https://codeclimate.com/github/jfredett/exegesis.png)](https://codeclimate.com/github/jfredett/exegesis)
+# Exegesis [![Gem Version](https://badge.fury.io/rb/exegesis.png)](http://badge.fury.io/rb/exegesis) [![Build Status](https://travis-ci.org/jfredett/exegesis.png?branch=master)](http://travis-ci.org/jfredett/exegesis) [![Code Climate](https://codeclimate.com/github/jfredett/exegesis.png)](https://codeclimate.com/github/jfredett/exegesis) [![Coverage Status](https://coveralls.io/repos/jfredett/exegesis/badge.png?branch=master)](https://coveralls.io/r/jfredett/exegesis)
 
 Katuv is a tool for defining and transforming Embedded Ruby DSLs (EDSLs). It
 

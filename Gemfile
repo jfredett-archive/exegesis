@@ -14,6 +14,7 @@ group :development do
   gem 'flog'
   gem 'flay'
   gem 'mutant'
+  gem 'coveralls', require: false
 end
 
 group :test do

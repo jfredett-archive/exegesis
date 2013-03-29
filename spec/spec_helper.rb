@@ -8,6 +8,9 @@ require 'bahia'
 
 require 'rspec-spies'
 
+require 'coveralls'
+Coveralls.wear!
+
 #include helpers
 Dir["./spec/helpers/*.rb"].each { |file| require file }
 
