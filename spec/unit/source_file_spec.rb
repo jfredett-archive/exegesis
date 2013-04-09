@@ -11,7 +11,7 @@ describe Exegesis::SourceFile do
   let(:full_path) { File.join(parent.path, name) }
   let(:content)   { double('content')            }
 
-  let(:source_file) { Exegesis::SourceFile.create(parent, name, fs_interface) }
+  let(:source_file) {  Exegesis::SourceFile.create(parent, name, fs_interface) }
 
   subject { source_file }
 
