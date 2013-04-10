@@ -29,21 +29,19 @@ module Exegesis
     def directories
       content.
         select { |s| fs_interface.directory?(s) }.
-        map    { |s| Directory.create(parent, fs_interface.basename(s), fs_interface) }
+        map    { |s| Directory.create(parent, fs_interface.basename(s)) }
     end
 
     #All of the files in the given path
     def files
       content.
         select { |s| fs_interface.file?(s) }.
-        map    { |s| SourceFile.create(parent, fs_interface.basename(s), fs_interface) }
+        map    { |s| SourceFile.create(parent, fs_interface.basename(s)) }
     end
 
     #All of the content from the given path
     def content
-      #XXX: this is toast. should probably be defined per includer, or it just
-      #proxies up to the parent, which is always a [Directory]
-      Dir[fs_interface.join(parent.path, '*')]
+      Dir[File.join(parent.path, '*')]
     end
 
     def inspect
