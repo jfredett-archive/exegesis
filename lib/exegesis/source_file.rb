@@ -31,8 +31,6 @@ module Exegesis
       @dependencies << file
     end
 
-    private
-
     def initialize(parent, name, fs_interface = File)
       raise ArgumentError, "parent must be a directory" unless parent.is_a?(Directory)
 
@@ -42,6 +40,8 @@ module Exegesis
       @parent = parent
       @dependencies = []
     end
+
+    private
 
     attr_reader :fs_interface
   end
